@@ -1,1030 +1,1014 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="zh-Hant" class="scroll-smooth">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta http-equiv="Content-Style-Type" content="text/css">
-  <title></title>
-  <meta name="Generator" content="Cocoa HTML Writer">
-  <meta name="CocoaVersion" content="2685.7">
-  <style type="text/css">
-    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
-    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="referrer" content="no-referrer">
+    <title>Ian & Sandy | 2027.03.13 婚禮邀請函</title>
+    
+    <!-- Google Fonts: Cormorant Garamond & Noto Serif TC -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Noto+Serif+TC:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Tone.js for gentle ambient wedding melody -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
+
+    <!-- Tailwind Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        morandi: {
+                            primary: '#d4a373',   // 暖焦糖金/奶茶色
+                            secondary: '#8da399', // 鼠尾草灰綠
+                            bg: '#fdfaf7',        // 柔和米白奶油底色
+                            card: '#f7f2ec',      // 溫潤卡片底色
+                            text: '#4a4a4a',      // 柔和深灰文字
+                            muted: '#8c857e',     // 莫蘭迪淺棕灰
+                            line: '#06C755'       // LINE 專屬綠
+                        }
+                    },
+                    fontFamily: {
+                        serifEn: ['"Cormorant Garamond"', 'serif'],
+                        serifTc: ['"Noto Serif TC"', 'serif'],
+                    },
+                    letterSpacing: {
+                        editorial: '0.22em',
+                        widestPlus: '0.35em'
+                    },
+                    boxShadow: {
+                        soft: '0 20px 40px -15px rgba(212, 163, 115, 0.15)',
+                        glass: '0 8px 32px 0 rgba(74, 74, 74, 0.05)'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* 基礎字體與滾動條美學 */
+        body {
+            background-color: #fdfaf7;
+            color: #4a4a4a;
+            font-family: 'Noto Serif TC', serif;
+            overflow-x: hidden;
+        }
+
+        .font-en {
+            font-family: 'Cormorant Garamond', serif;
+        }
+
+        /* 開場圓形畫框縮小淡出動畫 */
+        .circle-frame-transition {
+            transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.8s ease;
+        }
+
+        .circle-frame-transition.shrink-to-seal {
+            transform: scale(0.32);
+            opacity: 0;
+        }
+
+        /* 3D 立體信封動畫樣式 */
+        .perspective-container {
+            perspective: 1200px;
+        }
+
+        .envelope-wrapper {
+            position: relative;
+            width: 320px;
+            height: 210px;
+            background: #efe6dc;
+            border-radius: 12px;
+            box-shadow: 0 25px 50px -12px rgba(140, 120, 100, 0.25);
+            cursor: pointer;
+            transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1), background-color 0.6s ease, box-shadow 0.6s ease;
+        }
+
+        @media (min-width: 640px) {
+            .envelope-wrapper {
+                width: 400px;
+                height: 260px;
+            }
+        }
+
+        .envelope-wrapper:hover {
+            transform: translateY(-6px);
+        }
+
+        /* 信封內部信紙 */
+        .envelope-letter {
+            position: absolute;
+            left: 5%;
+            bottom: 8%;
+            width: 90%;
+            height: 85%;
+            background: linear-gradient(160deg, #fffdfb 0%, #faf3eb 100%);
+            border-radius: 16px;
+            padding: 28px 24px;
+            text-align: center;
+            box-shadow: 0 12px 30px rgba(140, 120, 100, 0.14);
+            z-index: 2;
+            transition: transform 1.6s cubic-bezier(0.16, 1, 0.3, 1) 0.35s,
+                        box-shadow 1.6s cubic-bezier(0.16, 1, 0.3, 1) 0.35s,
+                        background 1.2s ease,
+                        border-color 1.2s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid rgba(212, 163, 115, 0.35);
+            overflow: hidden;
+        }
+
+        /* 信紙內框燙金細線 */
+        .envelope-letter::before {
+            content: '';
+            position: absolute;
+            inset: 10px;
+            border: 1px solid rgba(212, 163, 115, 0.25);
+            border-radius: 10px;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 1.4s ease 0.7s;
+        }
+
+        /* 信紙內文逐行溫柔浮現 */
+        .letter-line {
+            opacity: 0.35;
+            transform: translateY(6px);
+            transition: opacity 1.3s cubic-bezier(0.16, 1, 0.3, 1),
+                        transform 1.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .letter-line-1 { transition-delay: 0.55s; }
+        .letter-line-2 { transition-delay: 0.75s; }
+        .letter-line-3 { transition-delay: 0.95s; }
+        .letter-line-4 { transition-delay: 1.15s; }
+
+        /* 信封左右下折頁 */
+        .envelope-pocket {
+            position: absolute;
+            inset: 0;
+            z-index: 3;
+            pointer-events: none;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: opacity 1.1s cubic-bezier(0.22, 1, 0.36, 1) 0.25s,
+                        transform 1.2s cubic-bezier(0.22, 1, 0.36, 1) 0.25s;
+        }
+
+        .envelope-pocket::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 0 0 210px 320px;
+            border-color: transparent transparent #f5ede3 transparent;
+        }
+
+        .envelope-pocket::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 210px 0 0 320px;
+            border-color: transparent transparent transparent #f9f3ec;
+        }
+
+        @media (min-width: 640px) {
+            .envelope-pocket::before {
+                border-width: 0 0 260px 400px;
+            }
+            .envelope-pocket::after {
+                border-width: 260px 0 0 400px;
+            }
+        }
+
+        /* 信封上蓋 */
+        .envelope-flap {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 56%;
+            background: linear-gradient(180deg, #e5d5c3 0%, #efe4d6 100%);
+            clip-path: polygon(0 0, 100% 0, 50% 100%);
+            transform-origin: top center;
+            transition: transform 1s cubic-bezier(0.22, 1, 0.36, 1),
+                        opacity 0.9s ease 0.35s,
+                        z-index 0.1s 0.45s;
+            z-index: 4;
+            border-top-left-radius: 12px;
+            border-top-right-radius: 12px;
+        }
+
+        /* 圓形婚紗印章 */
+        .photo-seal {
+            position: absolute;
+            top: 52%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
+            padding: 3px;
+            background: linear-gradient(135deg, #e6c29f 0%, #d4a373 100%);
+            box-shadow: 0 10px 24px rgba(140, 100, 70, 0.32), inset 0 1px 2px rgba(255, 255, 255, 0.7);
+            z-index: 5;
+            transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.6s ease;
+        }
+
+        @media (min-width: 640px) {
+            .photo-seal {
+                width: 82px;
+                height: 82px;
+            }
+        }
+
+        .envelope-wrapper:hover .photo-seal {
+            transform: translate(-50%, -50%) scale(1.07);
+        }
+
+        /* 信封開啟狀態：外殼如薄霧散去，信紙溫暖綻放 */
+        .envelope-wrapper.opened {
+            background: transparent;
+            box-shadow: none;
+            transform: translateY(0);
+        }
+
+        .envelope-wrapper.opened .envelope-flap {
+            transform: rotateX(180deg);
+            opacity: 0;
+            z-index: 1;
+        }
+
+        .envelope-wrapper.opened .envelope-pocket {
+            opacity: 0;
+            transform: translateY(14px);
+        }
+
+        .envelope-wrapper.opened .photo-seal {
+            opacity: 0;
+            transform: translate(-50%, -50%) scale(0.75);
+            pointer-events: none;
+        }
+
+        .envelope-wrapper.opened .envelope-letter {
+            z-index: 10;
+            transform: translateY(-16px) scale(1.18);
+            border-color: rgba(212, 163, 115, 0.55);
+            box-shadow: 0 28px 65px -10px rgba(212, 163, 115, 0.32),
+                        0 0 40px rgba(253, 245, 235, 0.9);
+        }
+
+        .envelope-wrapper.opened .envelope-letter::before {
+            opacity: 1;
+        }
+
+        .envelope-wrapper.opened .letter-line {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
 </head>
-<body>
-<p class="p1">&lt;!DOCTYPE html&gt;</p>
-<p class="p1">&lt;html lang="zh-Hant" class="scroll-smooth"&gt;</p>
-<p class="p1">&lt;head&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta charset="UTF-8"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta name="referrer" content="no-referrer"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;title&gt;Ian &amp; Sandy | 2027.03.13 婚禮邀請函&lt;/title&gt;</p>
-<p class="p2"><span class="Apple-converted-space">    </span></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- Google Fonts: Cormorant Garamond &amp; Noto Serif TC --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;link rel="preconnect" href="https://fonts.googleapis.com"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;link rel="preconnect" href="https://fonts.gstatic.com" crossorigin&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&amp;family=Noto+Serif+TC:wght@300;400;500;600&amp;display=swap" rel="stylesheet"&gt;</p>
-<p class="p2"><span class="Apple-converted-space">    </span></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- Tailwind CSS --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;script src="https://cdn.tailwindcss.com"&gt;&lt;/script&gt;</p>
-<p class="p2"><span class="Apple-converted-space">    </span></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- Tone.js for gentle ambient wedding melody --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"&gt;&lt;/script&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- Tailwind Config --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;script&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>tailwind.config = {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>theme: {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>extend: {</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>colors: {</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>morandi: {</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>primary: '#d4a373', <span class="Apple-converted-space">  </span>// 暖焦糖金/奶茶色</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>secondary: '#8da399', // 鼠尾草灰綠</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>bg: '#fdfaf7',<span class="Apple-converted-space">        </span>// 柔和米白奶油底色</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>card: '#f7f2ec',<span class="Apple-converted-space">      </span>// 溫潤卡片底色</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>text: '#4a4a4a',<span class="Apple-converted-space">      </span>// 柔和深灰文字</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>muted: '#8c857e', <span class="Apple-converted-space">    </span>// 莫蘭迪淺棕灰</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>line: '#06C755' <span class="Apple-converted-space">      </span>// LINE 專屬綠</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>},</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>fontFamily: {</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>serifEn: ['"Cormorant Garamond"', 'serif'],</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>serifTc: ['"Noto Serif TC"', 'serif'],</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>},</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>letterSpacing: {</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>editorial: '0.22em',</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>widestPlus: '0.35em'</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>},</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>boxShadow: {</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>soft: '0 20px 40px -15px rgba(212, 163, 115, 0.15)',</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>glass: '0 8px 32px 0 rgba(74, 74, 74, 0.05)'</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>}</p>
-<p class="p1"><span class="Apple-converted-space">                </span>}</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/script&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;style&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>/* 基礎字體與滾動條美學 */</p>
-<p class="p1"><span class="Apple-converted-space">        </span>body {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background-color: #fdfaf7;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>color: #4a4a4a;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-family: 'Noto Serif TC', serif;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>overflow-x: hidden;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.font-en {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-family: 'Cormorant Garamond', serif;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>/* 開場圓形畫框縮小淡出動畫 */</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.circle-frame-transition {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.8s ease;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.circle-frame-transition.shrink-to-seal {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>transform: scale(0.32);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>opacity: 0;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>/* 3D 立體信封動畫樣式 */</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.perspective-container {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>perspective: 1200px;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.envelope-wrapper {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>position: relative;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>width: 320px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>height: 210px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background: #efe6dc;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 12px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>box-shadow: 0 25px 50px -12px rgba(140, 120, 100, 0.25);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>cursor: pointer;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1), background-color 0.6s ease, box-shadow 0.6s ease;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>@media (min-width: 640px) {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>.envelope-wrapper {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>width: 400px;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>height: 260px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.envelope-wrapper:hover {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>transform: translateY(-6px);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>/* 信封內部信紙 */</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.envelope-letter {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>position: absolute;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>left: 5%;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>bottom: 8%;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>width: 90%;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>height: 85%;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background: linear-gradient(160deg, #fffdfb 0%, #faf3eb 100%);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 16px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>padding: 28px 24px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>text-align: center;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>box-shadow: 0 12px 30px rgba(140, 120, 100, 0.14);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>z-index: 2;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>transition: transform 1.6s cubic-bezier(0.16, 1, 0.3, 1) 0.35s,</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>box-shadow 1.6s cubic-bezier(0.16, 1, 0.3, 1) 0.35s,</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>background 1.2s ease,</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>border-color 1.2s ease;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>display: flex;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>flex-direction: column;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>justify-content: center;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>align-items: center;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border: 1px solid rgba(212, 163, 115, 0.35);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>overflow: hidden;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>/* 信紙內框燙金細線 */</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.envelope-letter::before {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>content: '';</p>
-<p class="p1"><span class="Apple-converted-space">            </span>position: absolute;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>inset: 10px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border: 1px solid rgba(212, 163, 115, 0.25);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 10px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>pointer-events: none;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>opacity: 0;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>transition: opacity 1.4s ease 0.7s;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>/* 信紙內文逐行溫柔浮現 */</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.letter-line {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>opacity: 0.35;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>transform: translateY(6px);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>transition: opacity 1.3s cubic-bezier(0.16, 1, 0.3, 1),</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>transform 1.3s cubic-bezier(0.16, 1, 0.3, 1);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.letter-line-1 { transition-delay: 0.55s; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.letter-line-2 { transition-delay: 0.75s; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.letter-line-3 { transition-delay: 0.95s; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.letter-line-4 { transition-delay: 1.15s; }</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>/* 信封左右下折頁 */</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.envelope-pocket {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>position: absolute;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>inset: 0;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>z-index: 3;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>pointer-events: none;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 12px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>overflow: hidden;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>transition: opacity 1.1s cubic-bezier(0.22, 1, 0.36, 1) 0.25s,</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>transform 1.2s cubic-bezier(0.22, 1, 0.36, 1) 0.25s;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.envelope-pocket::before {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>content: '';</p>
-<p class="p1"><span class="Apple-converted-space">            </span>position: absolute;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>bottom: 0;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>left: 0;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>width: 0;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>height: 0;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border-style: solid;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border-width: 0 0 210px 320px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border-color: transparent transparent #f5ede3 transparent;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.envelope-pocket::after {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>content: '';</p>
-<p class="p1"><span class="Apple-converted-space">            </span>position: absolute;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>bottom: 0;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>right: 0;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>width: 0;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>height: 0;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border-style: solid;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border-width: 210px 0 0 320px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border-color: transparent transparent transparent #f9f3ec;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>@media (min-width: 640px) {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>.envelope-pocket::before {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>border-width: 0 0 260px 400px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}</p>
-<p class="p1"><span class="Apple-converted-space">            </span>.envelope-pocket::after {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>border-width: 260px 0 0 400px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>/* 信封上蓋 */</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.envelope-flap {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>position: absolute;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>top: 0;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>left: 0;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>width: 100%;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>height: 56%;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background: linear-gradient(180deg, #e5d5c3 0%, #efe4d6 100%);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>clip-path: polygon(0 0, 100% 0, 50% 100%);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>transform-origin: top center;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>transition: transform 1s cubic-bezier(0.22, 1, 0.36, 1),</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>opacity 0.9s ease 0.35s,</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>z-index 0.1s 0.45s;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>z-index: 4;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border-top-left-radius: 12px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border-top-right-radius: 12px;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>/* 圓形婚紗印章 */</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.photo-seal {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>position: absolute;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>top: 52%;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>left: 50%;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>transform: translate(-50%, -50%);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>width: 72px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>height: 72px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 50%;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>padding: 3px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background: linear-gradient(135deg, #e6c29f 0%, #d4a373 100%);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>box-shadow: 0 10px 24px rgba(140, 100, 70, 0.32), inset 0 1px 2px rgba(255, 255, 255, 0.7);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>z-index: 5;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.6s ease;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>@media (min-width: 640px) {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>.photo-seal {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>width: 82px;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>height: 82px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.envelope-wrapper:hover .photo-seal {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>transform: translate(-50%, -50%) scale(1.07);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>/* 信封開啟狀態：外殼如薄霧散去，信紙溫暖綻放 */</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.envelope-wrapper.opened {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background: transparent;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>box-shadow: none;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>transform: translateY(0);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.envelope-wrapper.opened .envelope-flap {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>transform: rotateX(180deg);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>opacity: 0;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>z-index: 1;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.envelope-wrapper.opened .envelope-pocket {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>opacity: 0;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>transform: translateY(14px);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.envelope-wrapper.opened .photo-seal {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>opacity: 0;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>transform: translate(-50%, -50%) scale(0.75);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>pointer-events: none;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.envelope-wrapper.opened .envelope-letter {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>z-index: 10;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>transform: translateY(-16px) scale(1.18);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border-color: rgba(212, 163, 115, 0.55);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>box-shadow: 0 28px 65px -10px rgba(212, 163, 115, 0.32),</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>0 0 40px rgba(253, 245, 235, 0.9);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.envelope-wrapper.opened .envelope-letter::before {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>opacity: 1;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.envelope-wrapper.opened .letter-line {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>opacity: 1;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>transform: translateY(0);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/style&gt;</p>
-<p class="p1">&lt;/head&gt;</p>
-<p class="p1">&lt;body class="antialiased selection:bg-morandi-primary/20 selection:text-morandi-text"&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- ==================== 1. 開場畫面與 5 秒莫蘭迪進度條 ==================== --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div id="intro-preloader" class="fixed inset-0 z-50 flex flex-col items-center justify-center bg-[#fdfaf7] px-6 transition-opacity duration-1000"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;!-- 圓形畫框婚紗照 --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div id="preloader-circle-frame" class="circle-frame-transition relative mb-8"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="w-56 h-56 sm:w-64 sm:h-64 rounded-full p-2.5 border border-morandi-primary/35 shadow-soft bg-white/80 backdrop-blur-sm"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="w-full h-full rounded-full overflow-hidden relative ring-1 ring-morandi-primary/20"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;img src="https://i.postimg.cc/qB6sxm6B/VINCENT-677-(2).jpg"<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">                         </span>referrerpolicy="no-referrer"</p>
-<p class="p1"><span class="Apple-converted-space">                         </span>onerror="if(!this.dataset.retried){this.dataset.retried='1';this.src='https://images.weserv.nl/?url=i.postimg.cc/qB6sxm6B/VINCENT-677-(2).jpg';}else{this.src='https://placehold.co/800x800/f3ebe1/8c857e?text=Ian+%26+Sandy';}"</p>
-<p class="p1"><span class="Apple-converted-space">                         </span>alt="柏成與詩評婚紗照"<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">                         </span>class="w-full h-full object-cover object-center"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;!-- 進度條與新人英文名字 --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div id="preloader-meta" class="w-full max-w-xs sm:max-w-sm text-center transition-opacity duration-500"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;p class="font-en italic text-xl sm:text-2xl tracking-editorial text-morandi-text mb-1.5"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>Ian &amp;amp; Sandy</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;p class="text-[11px] sm:text-xs tracking-[0.28em] text-morandi-muted mb-5"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>2027.03.13 • WEDDING INVITATION</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/p&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;!-- 莫蘭迪進度條容器 --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="w-full h-[3px] bg-morandi-primary/20 rounded-full overflow-hidden mb-3"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div id="progress-bar" class="h-full bg-gradient-to-r from-morandi-primary to-morandi-secondary rounded-full transition-all duration-75 ease-linear" style="width: 0%;"&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;!-- 百分比數字 --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;p id="progress-text" class="font-en text-sm tracking-widest text-morandi-primary font-medium"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>0%</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- ==================== 2. 3D 立體圓形婚紗印章信封畫面 ==================== --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div id="envelope-overlay" class="fixed inset-0 z-40 hidden flex-col items-center justify-center bg-[#fdfaf7]/95 backdrop-blur-md px-4 opacity-0 transition-all duration-[1400ms] ease-out"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;!-- 溫暖柔光氛圍光暈 (開啟信封時緩緩綻放) --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div id="envelope-warm-glow" class="absolute w-80 h-80 sm:w-[460px] sm:h-[460px] rounded-full bg-morandi-primary/15 blur-3xl opacity-0 scale-75 pointer-events-none transition-all duration-[1800ms] ease-out"&gt;&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div id="envelope-header-text" class="text-center mb-10 transition-all duration-1000 ease-out"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;p class="font-en text-xs sm:text-sm tracking-widestPlus uppercase text-morandi-secondary mb-2"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>A Special Invitation For You</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;h2 class="text-lg sm:text-xl tracking-[0.28em] text-morandi-text font-normal"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>誠摯邀請您開啟喜悅</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/h2&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;!-- 3D 立體信封互動區 --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="perspective-container relative z-10"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div id="wedding-envelope" class="envelope-wrapper" role="button" tabindex="0" aria-label="點擊開啟婚禮邀請函信封"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;!-- 信封上蓋 --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="envelope-flap"&gt;&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;!-- 圓形婚紗印章 (銜接開場圓形畫框) --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="photo-seal"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="w-full h-full rounded-full overflow-hidden border border-white/80"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;img src="https://i.postimg.cc/qB6sxm6B/VINCENT-677-(2).jpg"<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">                             </span>referrerpolicy="no-referrer"</p>
-<p class="p1"><span class="Apple-converted-space">                             </span>onerror="if(!this.dataset.retried){this.dataset.retried='1';this.src='https://images.weserv.nl/?url=i.postimg.cc/qB6sxm6B/VINCENT-677-(2).jpg';}else{this.src='https://placehold.co/300x300/f3ebe1/8c857e?text=I%26S';}"</p>
-<p class="p1"><span class="Apple-converted-space">                             </span>alt="婚紗印章"<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">                             </span>class="w-full h-full object-cover object-center"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;!-- 內部滑出並優雅展開的信紙 --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="envelope-letter"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;h3 class="letter-line letter-line-1 font-en text-2xl sm:text-3xl tracking-editorial text-morandi-primary font-medium mb-2"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>Ian＆Sandy</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="letter-line letter-line-2 w-12 h-[1px] bg-gradient-to-r from-transparent via-morandi-primary/60 to-transparent my-2"&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;p class="letter-line letter-line-3 text-sm sm:text-base tracking-[0.24em] text-morandi-text font-normal my-1.5"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>誠摯邀請您參與我們的婚禮</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;p class="letter-line letter-line-4 font-en text-xs sm:text-sm tracking-widestPlus uppercase text-morandi-secondary mt-1.5"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>Wedding Invitation</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;!-- 信封口袋 --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="envelope-pocket"&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;p id="envelope-hint" class="mt-10 text-xs sm:text-sm tracking-[0.25em] text-morandi-muted animate-pulse transition-opacity duration-700"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>輕觸婚紗印章開啟信封</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- ==================== 3. 固定毛玻璃導航列 (Fixed Glass Navbar) ==================== --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;header id="main-navbar" class="fixed top-0 left-0 right-0 z-30 transition-all duration-500 opacity-0 pointer-events-none"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="mx-auto max-w-5xl px-3 sm:px-6 pt-3 sm:pt-4"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;nav class="bg-white/70 backdrop-blur-md border border-white/80 shadow-glass rounded-full px-4 sm:px-8 py-3 flex items-center justify-between"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;!-- 左側品牌縮寫 --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;a href="#for-you" class="font-en text-lg sm:text-xl font-semibold tracking-editorial text-morandi-primary hover:opacity-80 transition"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>I &amp;amp; S</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/a&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;!-- 中央四個導航項目 --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;ul class="flex items-center space-x-3 sm:space-x-8 text-xs sm:text-sm tracking-[0.15em] sm:tracking-[0.22em] text-morandi-text"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;a href="#for-you" class="hover:text-morandi-primary transition-colors py-1 font-en font-medium"&gt;For you&lt;/a&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;a href="#about-us" class="hover:text-morandi-primary transition-colors py-1"&gt;關於我們&lt;/a&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;a href="#wedding-details" class="hover:text-morandi-primary transition-colors py-1"&gt;婚禮詳情&lt;/a&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;a href="#photo-gallery" class="hover:text-morandi-primary transition-colors py-1"&gt;婚紗長廊&lt;/a&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/ul&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;!-- 右側背景音樂控制按鈕 --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;button id="music-toggle-btn" aria-label="切換背景音樂" class="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-morandi-primary/15 hover:bg-morandi-primary/25 flex items-center justify-center gap-[3px] transition music-paused"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;span class="w-[2px] bg-morandi-primary rounded-full music-bar"&gt;&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;span class="w-[2px] bg-morandi-primary rounded-full music-bar"&gt;&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;span class="w-[2px] bg-morandi-primary rounded-full music-bar"&gt;&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/nav&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/header&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- ==================== 4. 主內容區塊 (雜誌感排版) ==================== --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;main id="main-content" class="opacity-0 transition-opacity duration-1000 pb-20"&gt;</p>
-<p class="p2"><span class="Apple-converted-space">        </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;!-- SECTION 1: For you (主視覺封面與靈魂標語) --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;section id="for-you" class="pt-24 sm:pt-32 pb-16 sm:pb-24 px-4 sm:px-6 max-w-5xl mx-auto"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="bg-white/60 rounded-[2rem] p-5 sm:p-10 md:p-12 shadow-soft border border-morandi-primary/15"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-center"&gt;</p>
-<p class="p2"><span class="Apple-converted-space">                    </span></p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;!-- 左側：雜誌風直式婚紗主圖 --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="md:col-span-6 relative"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="aspect-[3/4] rounded-[1.5rem] overflow-hidden shadow-md relative group"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;img src="https://i.postimg.cc/qB6sxm6B/VINCENT-677-(2).jpg"<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">                                 </span>referrerpolicy="no-referrer"</p>
-<p class="p1"><span class="Apple-converted-space">                                 </span>onerror="if(!this.dataset.retried){this.dataset.retried='1';this.src='https://images.weserv.nl/?url=i.postimg.cc/qB6sxm6B/VINCENT-677-(2).jpg';}else{this.src='https://placehold.co/900x1200/f3ebe1/8c857e?text=Ian+%26+Sandy';}"</p>
-<p class="p1"><span class="Apple-converted-space">                                 </span>alt="柏成與詩評 婚紗封面"<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">                                 </span>class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-1000"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;div class="absolute inset-0 ring-1 ring-inset ring-black/5 rounded-[1.5rem]"&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;!-- 浮動雜誌日期標籤 --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="absolute -bottom-4 -right-2 sm:-right-4 bg-[#fdfaf7]/90 backdrop-blur-md px-5 py-3 rounded-2xl shadow-soft border border-morandi-primary/20"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;p class="font-en text-xs tracking-widestPlus text-morandi-secondary uppercase"&gt;Wedding Day&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;p class="font-en text-xl sm:text-2xl font-medium tracking-editorial text-morandi-text"&gt;2027.03.13&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;!-- 右側：新人姓名、英文名與靈魂標語 --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="md:col-span-6 text-center md:text-left pt-4 md:pt-0 md:pl-4 flex flex-col justify-center"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;span class="inline-block font-en text-xs sm:text-sm tracking-widestPlus uppercase text-morandi-secondary mb-4"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>Special Issue — For You</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/span&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;!-- 新郎新娘中文名字 --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;h1 class="text-3xl sm:text-4xl lg:text-5xl font-medium tracking-[0.28em] text-morandi-text leading-tight mb-3"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>柏成 &lt;span class="text-morandi-primary font-light mx-1"&gt;&amp;amp;&lt;/span&gt; 詩評</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/h1&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;!-- 底下英文名 Ian &amp; Sandy --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;p class="font-en italic text-2xl sm:text-3xl tracking-editorial text-morandi-muted mb-8"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>Ian &amp;amp; Sandy</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/p&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;!-- 裝飾線 --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="w-16 h-[1px] bg-morandi-primary/50 mx-auto md:mx-0 mb-8"&gt;&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;!-- 靈魂標語 --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;blockquote class="text-base sm:text-lg tracking-[0.26em] text-morandi-text leading-loose font-normal mb-8"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>「你是我漫漫時光裡的歡喜」</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/blockquote&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;p class="text-xs sm:text-sm text-morandi-muted leading-relaxed tracking-[0.18em] font-light"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>往後餘生，風雪是你，平淡是你，&lt;br class="hidden sm:inline"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>清貧是你，榮華是你，心底溫柔也是你。&lt;br&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>在這個春暖花開的日子，期盼與您分享這份喜悅。</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/section&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;!-- SECTION 2: 關於我們 &amp; 婚禮倒數計時 --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;section id="about-us" class="py-16 sm:py-20 px-4 sm:px-6 max-w-4xl mx-auto reveal-up"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="text-center mb-12"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;p class="font-en text-xs sm:text-sm tracking-widestPlus uppercase text-morandi-secondary mb-2"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>About Us &amp;amp; Countdown</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;h2 class="text-2xl sm:text-3xl tracking-[0.28em] text-morandi-text font-medium"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>關於我們與幸福倒數</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/h2&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;!-- 雙人小卡 --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-12"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="bg-morandi-card/80 rounded-3xl p-8 text-center border border-morandi-primary/15 shadow-sm"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;p class="font-en text-xs tracking-widestPlus uppercase text-morandi-secondary mb-2"&gt;The Groom&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;h3 class="text-xl tracking-[0.25em] text-morandi-text font-medium mb-1"&gt;柏成&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;p class="font-en italic text-lg text-morandi-primary mb-4"&gt;Ian&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;p class="text-xs sm:text-sm text-morandi-muted tracking-[0.18em] leading-relaxed"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>溫柔堅定，是妳最安穩的依靠。&lt;br&gt;感謝命運讓我們在人海中相遇。</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="bg-morandi-card/80 rounded-3xl p-8 text-center border border-morandi-primary/15 shadow-sm"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;p class="font-en text-xs tracking-widestPlus uppercase text-morandi-secondary mb-2"&gt;The Bride&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;h3 class="text-xl tracking-[0.25em] text-morandi-text font-medium mb-1"&gt;詩評&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;p class="font-en italic text-lg text-morandi-primary mb-4"&gt;Sandy&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;p class="text-xs sm:text-sm text-morandi-muted tracking-[0.18em] leading-relaxed"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>細膩浪漫，把日常過成詩篇。&lt;br&gt;謝謝你把所有的偏愛都給了我。</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;!-- 婚禮倒數計時器 (2027.03.13 12:00 開席) --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="bg-white/80 backdrop-blur-md rounded-3xl p-6 sm:p-10 border border-morandi-primary/20 shadow-soft text-center"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;p class="text-xs sm:text-sm tracking-[0.25em] text-morandi-muted mb-2"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>距離 2027 年 3 月 13 日 12:00 午宴開席還有</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div id="countdown-timer" class="grid grid-cols-4 gap-3 sm:gap-6 max-w-lg mx-auto mt-6"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="bg-morandi-bg rounded-2xl py-4 px-2 border border-morandi-primary/15"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;span id="cd-days" class="block font-en text-2xl sm:text-4xl font-semibold text-morandi-primary tracking-wider"&gt;000&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;span class="text-[11px] sm:text-xs tracking-[0.2em] text-morandi-muted mt-1 block"&gt;DAYS 天&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="bg-morandi-bg rounded-2xl py-4 px-2 border border-morandi-primary/15"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;span id="cd-hours" class="block font-en text-2xl sm:text-4xl font-semibold text-morandi-primary tracking-wider"&gt;00&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;span class="text-[11px] sm:text-xs tracking-[0.2em] text-morandi-muted mt-1 block"&gt;HOURS 時&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="bg-morandi-bg rounded-2xl py-4 px-2 border border-morandi-primary/15"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;span id="cd-minutes" class="block font-en text-2xl sm:text-4xl font-semibold text-morandi-primary tracking-wider"&gt;00&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;span class="text-[11px] sm:text-xs tracking-[0.2em] text-morandi-muted mt-1 block"&gt;MINS 分&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="bg-morandi-bg rounded-2xl py-4 px-2 border border-morandi-primary/15"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;span id="cd-seconds" class="block font-en text-2xl sm:text-4xl font-semibold text-morandi-secondary tracking-wider"&gt;00&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;span class="text-[11px] sm:text-xs tracking-[0.2em] text-morandi-muted mt-1 block"&gt;SECS 秒&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/section&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;!-- SECTION 3: 婚禮詳情 (午宴資訊) --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;section id="wedding-details" class="py-16 sm:py-20 px-4 sm:px-6 max-w-4xl mx-auto reveal-up"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="text-center mb-12"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;p class="font-en text-xs sm:text-sm tracking-widestPlus uppercase text-morandi-secondary mb-2"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>Wedding Banquet Details</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;h2 class="text-2xl sm:text-3xl tracking-[0.28em] text-morandi-text font-medium"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>婚禮詳情・午宴資訊</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/h2&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="bg-white/85 rounded-[2rem] p-8 sm:p-12 shadow-soft border border-morandi-primary/20 relative overflow-hidden"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;!-- 裝飾角落圓弧 --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="absolute -top-16 -right-16 w-40 h-40 rounded-full bg-morandi-primary/10 pointer-events-none"&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="absolute -bottom-16 -left-16 w-40 h-40 rounded-full bg-morandi-secondary/10 pointer-events-none"&gt;&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="relative z-10 text-center max-w-xl mx-auto"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;span class="inline-block px-4 py-1.5 rounded-full bg-morandi-secondary/15 text-morandi-secondary text-xs tracking-[0.25em] mb-6"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>LUNCHEON RECEPTION</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/span&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;h3 class="font-en text-3xl sm:text-4xl font-medium tracking-editorial text-morandi-text mb-2"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>2027.03.13 &lt;span class="text-lg font-serifTc font-normal text-morandi-muted"&gt;(六)&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/h3&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;!-- 時間軸資訊 --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8 my-8 py-6 border-y border-morandi-primary/20"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="text-center"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;p class="font-en text-2xl sm:text-3xl font-semibold text-morandi-primary tracking-wider"&gt;11:30&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;p class="text-xs sm:text-sm tracking-[0.22em] text-morandi-text mt-1"&gt;迎賓入席&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="hidden sm:block w-12 h-[1px] bg-morandi-primary/40"&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="sm:hidden h-6 w-[1px] bg-morandi-primary/40"&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="text-center"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;p class="font-en text-2xl sm:text-3xl font-semibold text-morandi-secondary tracking-wider"&gt;12:00&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;p class="text-xs sm:text-sm tracking-[0.22em] text-morandi-text mt-1"&gt;準時開席&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;!-- 地點資訊 --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="mb-8"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;p class="text-xs tracking-[0.25em] text-morandi-muted mb-2"&gt;宴客地點&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;h4 class="text-xl sm:text-2xl font-medium tracking-[0.22em] text-morandi-text mb-2"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>台中烏日璞旅</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/h4&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;p class="text-xs sm:text-sm text-morandi-muted tracking-[0.15em]"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>台中市烏日區健行路757號</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;!-- 互動按鈕列：Google 地圖與分享至 LINE --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="flex flex-col sm:flex-row items-center justify-center gap-4"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;a href="https://www.google.com/maps/search/?api=1&amp;query=台中烏日璞旅"<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">                           </span>target="_blank" rel="noopener noreferrer"</p>
-<p class="p1"><span class="Apple-converted-space">                           </span>class="w-full sm:w-auto px-7 py-3.5 rounded-full bg-morandi-primary text-white text-xs sm:text-sm tracking-[0.2em] hover:bg-[#c59261] transition shadow-sm flex items-center justify-center gap-2"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>&lt;path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>&lt;path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;/svg&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;span&gt;開啟地圖導航&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/a&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;button id="share-line-btn" type="button"</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>class="w-full sm:w-auto px-7 py-3.5 rounded-full bg-morandi-line text-white text-xs sm:text-sm tracking-[0.2em] hover:opacity-90 transition shadow-sm flex items-center justify-center gap-2"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>&lt;path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;/svg&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;span&gt;分享喜帖至 LINE&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/section&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;!-- SECTION 4: 婚紗長廊 (輪播展示) --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;section id="photo-gallery" class="py-16 sm:py-20 px-4 sm:px-6 max-w-5xl mx-auto reveal-up"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="text-center mb-12"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;p class="font-en text-xs sm:text-sm tracking-widestPlus uppercase text-morandi-secondary mb-2"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>Pre-Wedding Gallery</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;h2 class="text-2xl sm:text-3xl tracking-[0.28em] text-morandi-text font-medium"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>婚紗長廊・定格永恆</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/h2&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;!-- 輪播主容器 --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="bg-white/75 p-4 sm:p-8 rounded-[2rem] shadow-soft border border-morandi-primary/15"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="relative aspect-[4/5] sm:aspect-[16/10] w-full rounded-[1.5rem] overflow-hidden bg-morandi-card" id="gallery-viewport"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;!-- 圖片容器將由 JS 動態渲染您指定的 5 張婚紗照 --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div id="gallery-slides-container" class="w-full h-full relative"&gt;&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;!-- 左右切換按鈕 --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;button id="prev-slide-btn" aria-label="上一張照片" class="absolute left-3 sm:left-5 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-white/75 backdrop-blur-md text-morandi-text hover:bg-white transition flex items-center justify-center shadow-sm"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M15 19l-7-7 7-7"/&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/svg&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;button id="next-slide-btn" aria-label="下一張照片" class="absolute right-3 sm:right-5 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-white/75 backdrop-blur-md text-morandi-text hover:bg-white transition flex items-center justify-center shadow-sm"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M9 5l7 7-7 7"/&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/svg&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/button&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;!-- 底部頁碼膠囊 --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="absolute bottom-4 right-4 z-20 px-3.5 py-1 rounded-full bg-black/35 backdrop-blur-md text-white font-en text-xs tracking-widest"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;span id="gallery-current-index"&gt;01&lt;/span&gt; / &lt;span id="gallery-total-count"&gt;05&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;!-- 縮圖導航列 --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div id="gallery-thumbnails" class="grid grid-cols-5 gap-2 sm:gap-4 mt-4 sm:mt-6"&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/section&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;!-- 頁尾誌謝 --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;footer class="mt-16 pt-12 border-t border-morandi-primary/20 text-center px-4"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;p class="font-en italic text-2xl sm:text-3xl text-morandi-primary tracking-editorial mb-2"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>Ian &amp;amp; Sandy</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;p class="text-xs sm:text-sm tracking-[0.25em] text-morandi-text mb-4"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>柏成 &amp;amp; 詩評・你是我漫漫時光裡的歡喜</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;p class="font-en text-xs tracking-widestPlus text-morandi-muted uppercase"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>2027.03.13 • Taichung Wuri</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/footer&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/main&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- 柔和訊息提示框 (取代 alert) --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div id="toast-message" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 bg-morandi-text/90 backdrop-blur-md text-white px-6 py-3 rounded-full text-xs sm:text-sm tracking-[0.18em] shadow-lg opacity-0 pointer-events-none transition-all duration-300"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>已複製喜帖連結，歡迎分享給親友！</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;script&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>document.addEventListener('DOMContentLoaded', () =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>/* =========================================================</p>
-<p class="p1"><span class="Apple-converted-space">             </span>* 1. 溫柔背景鋼琴旋律引擎 (使用 Tone.js 合成，無外部音源依賴)</p>
-<p class="p1"><span class="Apple-converted-space">             </span>* ========================================================= */</p>
-<p class="p1"><span class="Apple-converted-space">            </span>let isMusicPlaying = false;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>let musicLoop = null;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>let synth = null;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const musicBtn = document.getElementById('music-toggle-btn');</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>function initAndPlayGentleMusic() {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>try {</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>if (typeof Tone === 'undefined') return;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>if (!synth) {</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>const reverb = new Tone.Reverb({ decay: 4.5, wet: 0.55 }).toDestination();</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>synth = new Tone.PolySynth(Tone.Synth, {</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>oscillator: { type: 'sine' },</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>envelope: {</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>attack: 0.4,</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>decay: 1.2,</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>sustain: 0.4,</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>release: 2.5</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>},</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>volume: -14</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>}).connect(reverb);</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                        </span>const melodyNotes = [</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>['C4', 'E4', 'G4', 'D5'],</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>['B3', 'D4', 'G4', 'D5'],</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>['A3', 'C4', 'E4', 'G4'],</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>['F3', 'A3', 'C4', 'E4']</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>];</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>let step = 0;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                        </span>musicLoop = new Tone.Loop((time) =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>const chord = melodyNotes[step % melodyNotes.length];</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>chord.forEach((note, idx) =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>synth.triggerAttackRelease(note, '2n', time + idx * 0.45);</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>});</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>step++;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>}, '2m');</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                    </span>Tone.start().then(() =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>Tone.Transport.bpm.value = 68;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>musicLoop.start(0);</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>Tone.Transport.start();</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>isMusicPlaying = true;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>musicBtn.classList.remove('music-paused');</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>});</p>
-<p class="p1"><span class="Apple-converted-space">                </span>} catch (e) {</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>console.warn('Audio playback notice:', e);</p>
-<p class="p1"><span class="Apple-converted-space">                </span>}</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>musicBtn.addEventListener('click', () =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>if (!synth) {</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>initAndPlayGentleMusic();</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>return;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>}</p>
-<p class="p1"><span class="Apple-converted-space">                </span>if (isMusicPlaying) {</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>Tone.Transport.pause();</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>isMusicPlaying = false;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>musicBtn.classList.add('music-paused');</p>
-<p class="p1"><span class="Apple-converted-space">                </span>} else {</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>Tone.Transport.start();</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>isMusicPlaying = true;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>musicBtn.classList.remove('music-paused');</p>
-<p class="p1"><span class="Apple-converted-space">                </span>}</p>
-<p class="p1"><span class="Apple-converted-space">            </span>});</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>/* =========================================================</p>
-<p class="p1"><span class="Apple-converted-space">             </span>* 2. 開場畫面：停留 5 秒讓進度條從 0% 跑到 100%</p>
-<p class="p1"><span class="Apple-converted-space">             </span>* ========================================================= */</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const preloader = document.getElementById('intro-preloader');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const preloaderCircleFrame = document.getElementById('preloader-circle-frame');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const preloaderMeta = document.getElementById('preloader-meta');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const progressBar = document.getElementById('progress-bar');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const progressText = document.getElementById('progress-text');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const envelopeOverlay = document.getElementById('envelope-overlay');</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>const duration = 5000;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const intervalTime = 50;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const totalSteps = duration / intervalTime;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>let currentStep = 0;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>const progressTimer = setInterval(() =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>currentStep++;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>const percent = Math.min(100, Math.round((currentStep / totalSteps) * 100));</p>
-<p class="p1"><span class="Apple-converted-space">                </span>progressBar.style.width = `${percent}%`;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>progressText.textContent = `${percent}%`;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                </span>if (currentStep &gt;= totalSteps) {</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>clearInterval(progressTimer);</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>setTimeout(() =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>preloaderMeta.classList.add('opacity-0');</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>preloaderCircleFrame.classList.add('shrink-to-seal');</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                        </span>envelopeOverlay.classList.remove('hidden');</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>envelopeOverlay.classList.add('flex');</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>requestAnimationFrame(() =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>envelopeOverlay.classList.remove('opacity-0');</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>});</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                        </span>setTimeout(() =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>preloader.classList.add('opacity-0', 'pointer-events-none');</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>setTimeout(() =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>preloader.style.display = 'none';</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>}, 850);</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>}, 450);</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>}, 250);</p>
-<p class="p1"><span class="Apple-converted-space">                </span>}</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}, intervalTime);</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>/* =========================================================</p>
-<p class="p1"><span class="Apple-converted-space">             </span>* 3. 點擊立體信封：信封淡出、信紙優雅展開、啟動音樂並進入主畫面</p>
-<p class="p1"><span class="Apple-converted-space">             </span>* ========================================================= */</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const envelope = document.getElementById('wedding-envelope');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const envelopeHint = document.getElementById('envelope-hint');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const envelopeHeaderText = document.getElementById('envelope-header-text');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const envelopeWarmGlow = document.getElementById('envelope-warm-glow');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const mainNavbar = document.getElementById('main-navbar');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const mainContent = document.getElementById('main-content');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>let isEnvelopeOpened = false;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>function openWeddingEnvelope() {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>if (isEnvelopeOpened) return;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>isEnvelopeOpened = true;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                </span>envelope.classList.add('opened');</p>
-<p class="p1"><span class="Apple-converted-space">                </span>envelopeHint.classList.remove('animate-pulse');</p>
-<p class="p1"><span class="Apple-converted-space">                </span>envelopeHint.classList.add('opacity-0');</p>
-<p class="p1"><span class="Apple-converted-space">                </span>envelopeHeaderText.classList.add('opacity-0', '-translate-y-3');</p>
-<p class="p1"><span class="Apple-converted-space">                </span>envelopeWarmGlow.classList.remove('opacity-0', 'scale-75');</p>
-<p class="p1"><span class="Apple-converted-space">                </span>envelopeWarmGlow.classList.add('opacity-100', 'scale-110');</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                </span>initAndPlayGentleMusic();</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                </span>setTimeout(() =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>envelopeOverlay.classList.add('opacity-0', 'scale-[1.03]', 'pointer-events-none');</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>mainNavbar.classList.remove('opacity-0', 'pointer-events-none');</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>mainContent.classList.remove('opacity-0');</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                    </span>setTimeout(() =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>envelopeOverlay.style.display = 'none';</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>triggerScrollReveal();</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>}, 1400);</p>
-<p class="p1"><span class="Apple-converted-space">                </span>}, 3200);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>envelope.addEventListener('click', openWeddingEnvelope);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>envelope.addEventListener('keydown', (e) =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>if (e.key === 'Enter' || e.key === ' ') {</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>e.preventDefault();</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>openWeddingEnvelope();</p>
-<p class="p1"><span class="Apple-converted-space">                </span>}</p>
-<p class="p1"><span class="Apple-converted-space">            </span>});</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>/* =========================================================</p>
-<p class="p1"><span class="Apple-converted-space">             </span>* 4. 婚禮倒數計時器 (目標：2027.03.13 12:00:00)</p>
-<p class="p1"><span class="Apple-converted-space">             </span>* ========================================================= */</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const targetDate = new Date('2027-03-13T12:00:00+08:00').getTime();</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const elDays = document.getElementById('cd-days');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const elHours = document.getElementById('cd-hours');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const elMinutes = document.getElementById('cd-minutes');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const elSeconds = document.getElementById('cd-seconds');</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>function updateCountdown() {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>const now = new Date().getTime();</p>
-<p class="p1"><span class="Apple-converted-space">                </span>const distance = targetDate - now;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                </span>if (distance &lt;= 0) {</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>elDays.textContent = '000';</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>elHours.textContent = '00';</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>elMinutes.textContent = '00';</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>elSeconds.textContent = '00';</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>return;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                </span>const days = Math.floor(distance / (1000 * 60 * 60 * 24));</p>
-<p class="p1"><span class="Apple-converted-space">                </span>const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));</p>
-<p class="p1"><span class="Apple-converted-space">                </span>const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));</p>
-<p class="p1"><span class="Apple-converted-space">                </span>const seconds = Math.floor((distance % (1000 * 60)) / 1000);</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                </span>elDays.textContent = String(days).padStart(3, '0');</p>
-<p class="p1"><span class="Apple-converted-space">                </span>elHours.textContent = String(hours).padStart(2, '0');</p>
-<p class="p1"><span class="Apple-converted-space">                </span>elMinutes.textContent = String(minutes).padStart(2, '0');</p>
-<p class="p1"><span class="Apple-converted-space">                </span>elSeconds.textContent = String(seconds).padStart(2, '0');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>updateCountdown();</p>
-<p class="p1"><span class="Apple-converted-space">            </span>setInterval(updateCountdown, 1000);</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>/* =========================================================</p>
-<p class="p1"><span class="Apple-converted-space">             </span>* 5. 婚紗長廊輪播系統 (自動輪播 + 手動切換 + 觸控滑動)</p>
-<p class="p1"><span class="Apple-converted-space">             </span>* ========================================================= */</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const galleryPhotos = [</p>
-<p class="p1"><span class="Apple-converted-space">                </span>'https://i.postimg.cc/qB6sxm6B/VINCENT-677-(2).jpg',</p>
-<p class="p1"><span class="Apple-converted-space">                </span>'https://i.postimg.cc/qB6sxm6B/VINCENT-677-(2).jpg',</p>
-<p class="p1"><span class="Apple-converted-space">                </span>'https://i.postimg.cc/qB6sxm6B/VINCENT-677-(2).jpg',</p>
-<p class="p1"><span class="Apple-converted-space">                </span>'https://i.postimg.cc/qB6sxm6B/VINCENT-677-(2).jpg',</p>
-<p class="p1"><span class="Apple-converted-space">                </span>'https://i.postimg.cc/qB6sxm6B/VINCENT-677-(2).jpg'</p>
-<p class="p1"><span class="Apple-converted-space">            </span>];</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>const slidesContainer = document.getElementById('gallery-slides-container');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const thumbnailsContainer = document.getElementById('gallery-thumbnails');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const currentIndexEl = document.getElementById('gallery-current-index');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const totalCountEl = document.getElementById('gallery-total-count');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>let currentSlide = 0;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>let slideInterval = null;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>totalCountEl.textContent = String(galleryPhotos.length).padStart(2, '0');</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>galleryPhotos.forEach((url, index) =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>const cleanUrl = url.replace(/^https?:\/\//, '');</p>
-<p class="p1"><span class="Apple-converted-space">                </span>const slideDiv = document.createElement('div');</p>
-<p class="p1"><span class="Apple-converted-space">                </span>slideDiv.className = `gallery-slide absolute inset-0 w-full h-full ${index === 0 ? 'opacity-100 scale-100 z-10' : 'opacity-0 scale-105 z-0'}`;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>slideDiv.innerHTML = `</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;img src="${url}"<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">                         </span>referrerpolicy="no-referrer"</p>
-<p class="p1"><span class="Apple-converted-space">                         </span>onerror="if(!this.dataset.retried){this.dataset.retried='1';this.src='https://images.weserv.nl/?url=${cleanUrl}';}else{this.src='https://placehold.co/1200x900/f3ebe1/8c857e?text=Wedding+Photo+${index + 1}';}"</p>
-<p class="p1"><span class="Apple-converted-space">                         </span>alt="婚紗照 ${index + 1}"<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">                         </span>class="w-full h-full object-cover object-center"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>`;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>slidesContainer.appendChild(slideDiv);</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                </span>const thumbBtn = document.createElement('button');</p>
-<p class="p1"><span class="Apple-converted-space">                </span>thumbBtn.type = 'button';</p>
-<p class="p1"><span class="Apple-converted-space">                </span>thumbBtn.ariaLabel = `檢視第 ${index + 1} 張婚紗照`;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>thumbBtn.className = `aspect-square sm:aspect-[4/3] rounded-xl overflow-hidden border-2 transition-all duration-300 ${index === 0 ? 'border-morandi-primary opacity-100 scale-[1.02]' : 'border-transparent opacity-60 hover:opacity-90'}`;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>thumbBtn.innerHTML = `</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;img src="${url}"<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">                         </span>referrerpolicy="no-referrer"</p>
-<p class="p1"><span class="Apple-converted-space">                         </span>onerror="if(!this.dataset.retried){this.dataset.retried='1';this.src='https://images.weserv.nl/?url=${cleanUrl}';}else{this.src='https://placehold.co/300x300/f3ebe1/8c857e?text=${index + 1}';}"</p>
-<p class="p1"><span class="Apple-converted-space">                         </span>alt="縮圖 ${index + 1}"<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">                         </span>class="w-full h-full object-cover object-center"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>`;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>thumbBtn.addEventListener('click', () =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>goToSlide(index);</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>resetAutoSlide();</p>
-<p class="p1"><span class="Apple-converted-space">                </span>});</p>
-<p class="p1"><span class="Apple-converted-space">                </span>thumbnailsContainer.appendChild(thumbBtn);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>});</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>function goToSlide(index) {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>const slides = slidesContainer.children;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>const thumbs = thumbnailsContainer.children;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                </span>slides[currentSlide].classList.remove('opacity-100', 'scale-100', 'z-10');</p>
-<p class="p1"><span class="Apple-converted-space">                </span>slides[currentSlide].classList.add('opacity-0', 'scale-105', 'z-0');</p>
-<p class="p1"><span class="Apple-converted-space">                </span>thumbs[currentSlide].classList.remove('border-morandi-primary', 'opacity-100', 'scale-[1.02]');</p>
-<p class="p1"><span class="Apple-converted-space">                </span>thumbs[currentSlide].classList.add('border-transparent', 'opacity-60');</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                </span>currentSlide = (index + galleryPhotos.length) % galleryPhotos.length;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                </span>slides[currentSlide].classList.remove('opacity-0', 'scale-105', 'z-0');</p>
-<p class="p1"><span class="Apple-converted-space">                </span>slides[currentSlide].classList.add('opacity-100', 'scale-100', 'z-10');</p>
-<p class="p1"><span class="Apple-converted-space">                </span>thumbs[currentSlide].classList.remove('border-transparent', 'opacity-60');</p>
-<p class="p1"><span class="Apple-converted-space">                </span>thumbs[currentSlide].classList.add('border-morandi-primary', 'opacity-100', 'scale-[1.02]');</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                </span>currentIndexEl.textContent = String(currentSlide + 1).padStart(2, '0');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>function startAutoSlide() {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>slideInterval = setInterval(() =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>goToSlide(currentSlide + 1);</p>
-<p class="p1"><span class="Apple-converted-space">                </span>}, 4000);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>function resetAutoSlide() {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>clearInterval(slideInterval);</p>
-<p class="p1"><span class="Apple-converted-space">                </span>startAutoSlide();</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('prev-slide-btn').addEventListener('click', () =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>goToSlide(currentSlide - 1);</p>
-<p class="p1"><span class="Apple-converted-space">                </span>resetAutoSlide();</p>
-<p class="p1"><span class="Apple-converted-space">            </span>});</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('next-slide-btn').addEventListener('click', () =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>goToSlide(currentSlide + 1);</p>
-<p class="p1"><span class="Apple-converted-space">                </span>resetAutoSlide();</p>
-<p class="p1"><span class="Apple-converted-space">            </span>});</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>let touchStartX = 0;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const galleryViewport = document.getElementById('gallery-viewport');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>galleryViewport.addEventListener('touchstart', (e) =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>touchStartX = e.changedTouches[0].screenX;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}, { passive: true });</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>galleryViewport.addEventListener('touchend', (e) =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>const touchEndX = e.changedTouches[0].screenX;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>if (touchStartX - touchEndX &gt; 40) {</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>goToSlide(currentSlide + 1);</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>resetAutoSlide();</p>
-<p class="p1"><span class="Apple-converted-space">                </span>} else if (touchEndX - touchStartX &gt; 40) {</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>goToSlide(currentSlide - 1);</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>resetAutoSlide();</p>
-<p class="p1"><span class="Apple-converted-space">                </span>}</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}, { passive: true });</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>startAutoSlide();</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>/* =========================================================</p>
-<p class="p1"><span class="Apple-converted-space">             </span>* 6. LINE 分享與滾動漸顯效果</p>
-<p class="p1"><span class="Apple-converted-space">             </span>* ========================================================= */</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const shareLineBtn = document.getElementById('share-line-btn');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const toastMsg = document.getElementById('toast-message');</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>function showToast(text) {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>toastMsg.textContent = text;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>toastMsg.classList.remove('opacity-0');</p>
-<p class="p1"><span class="Apple-converted-space">                </span>setTimeout(() =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>toastMsg.classList.add('opacity-0');</p>
-<p class="p1"><span class="Apple-converted-space">                </span>}, 3000);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>shareLineBtn.addEventListener('click', () =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>const shareText = '誠摯邀請您參加 柏成 &amp; 詩評 (Ian &amp; Sandy) 的婚禮午宴｜2027.03.13 台中烏日璞旅';</p>
-<p class="p1"><span class="Apple-converted-space">                </span>const currentUrl = window.location.href;</p>
-<p class="p2"><span class="Apple-converted-space">                </span></p>
-<p class="p1"><span class="Apple-converted-space">                </span>const tempInput = document.createElement('textarea');</p>
-<p class="p1"><span class="Apple-converted-space">                </span>tempInput.value = `${shareText}\n${currentUrl}`;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>document.body.appendChild(tempInput);</p>
-<p class="p1"><span class="Apple-converted-space">                </span>tempInput.select();</p>
-<p class="p1"><span class="Apple-converted-space">                </span>try {</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>document.execCommand('copy');</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>showToast('已複製喜帖邀請資訊，正為您開啟 LINE 分享！');</p>
-<p class="p1"><span class="Apple-converted-space">                </span>} catch (err) {</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>showToast('正為您開啟 LINE 分享！');</p>
-<p class="p1"><span class="Apple-converted-space">                </span>}</p>
-<p class="p1"><span class="Apple-converted-space">                </span>document.body.removeChild(tempInput);</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                </span>const lineUrl = `https://line.me/R/msg/text/?${encodeURIComponent(shareText + '\n' + currentUrl)}`;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>window.open(lineUrl, '_blank', 'noopener,noreferrer');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>});</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>function triggerScrollReveal() {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>const reveals = document.querySelectorAll('.reveal-up');</p>
-<p class="p1"><span class="Apple-converted-space">                </span>const observer = new IntersectionObserver((entries) =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>entries.forEach(entry =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>if (entry.isIntersecting) {</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>entry.target.classList.add('active');</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>});</p>
-<p class="p1"><span class="Apple-converted-space">                </span>}, { threshold: 0.12 });</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                </span>reveals.forEach(el =&gt; observer.observe(el));</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>});</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/script&gt;</p>
-<p class="p1">&lt;/body&gt;</p>
-<p class="p1">&lt;/html&gt;</p>
+<body class="antialiased selection:bg-morandi-primary/20 selection:text-morandi-text">
+
+    <!-- ==================== 1. 開場畫面與 5 秒莫蘭迪進度條 ==================== -->
+    <div id="intro-preloader" class="fixed inset-0 z-50 flex flex-col items-center justify-center bg-[#fdfaf7] px-6 transition-opacity duration-1000">
+        <!-- 圓形畫框婚紗照 -->
+        <div id="preloader-circle-frame" class="circle-frame-transition relative mb-8">
+            <div class="w-56 h-56 sm:w-64 sm:h-64 rounded-full p-2.5 border border-morandi-primary/35 shadow-soft bg-white/80 backdrop-blur-sm">
+                <div class="w-full h-full rounded-full overflow-hidden relative ring-1 ring-morandi-primary/20">
+                    <img src="https://i.postimg.cc/qB6sxm6B/VINCENT-677-(2).jpg" 
+                         referrerpolicy="no-referrer"
+                         onerror="if(!this.dataset.retried){this.dataset.retried='1';this.src='https://images.weserv.nl/?url=i.postimg.cc/qB6sxm6B/VINCENT-677-(2).jpg';}else{this.src='https://placehold.co/800x800/f3ebe1/8c857e?text=Ian+%26+Sandy';}"
+                         alt="柏成與詩評婚紗照" 
+                         class="w-full h-full object-cover object-center">
+                </div>
+            </div>
+        </div>
+
+        <!-- 進度條與新人英文名字 -->
+        <div id="preloader-meta" class="w-full max-w-xs sm:max-w-sm text-center transition-opacity duration-500">
+            <p class="font-en italic text-xl sm:text-2xl tracking-editorial text-morandi-text mb-1.5">
+                Ian &amp; Sandy
+            </p>
+            <p class="text-[11px] sm:text-xs tracking-[0.28em] text-morandi-muted mb-5">
+                2027.03.13 • WEDDING INVITATION
+            </p>
+
+            <!-- 莫蘭迪進度條容器 -->
+            <div class="w-full h-[3px] bg-morandi-primary/20 rounded-full overflow-hidden mb-3">
+                <div id="progress-bar" class="h-full bg-gradient-to-r from-morandi-primary to-morandi-secondary rounded-full transition-all duration-75 ease-linear" style="width: 0%;"></div>
+            </div>
+
+            <!-- 百分比數字 -->
+            <p id="progress-text" class="font-en text-sm tracking-widest text-morandi-primary font-medium">
+                0%
+            </p>
+        </div>
+    </div>
+
+    <!-- ==================== 2. 3D 立體圓形婚紗印章信封畫面 ==================== -->
+    <div id="envelope-overlay" class="fixed inset-0 z-40 hidden flex-col items-center justify-center bg-[#fdfaf7]/95 backdrop-blur-md px-4 opacity-0 transition-all duration-[1400ms] ease-out">
+        <!-- 溫暖柔光氛圍光暈 (開啟信封時緩緩綻放) -->
+        <div id="envelope-warm-glow" class="absolute w-80 h-80 sm:w-[460px] sm:h-[460px] rounded-full bg-morandi-primary/15 blur-3xl opacity-0 scale-75 pointer-events-none transition-all duration-[1800ms] ease-out"></div>
+
+        <div id="envelope-header-text" class="text-center mb-10 transition-all duration-1000 ease-out">
+            <p class="font-en text-xs sm:text-sm tracking-widestPlus uppercase text-morandi-secondary mb-2">
+                A Special Invitation For You
+            </p>
+            <h2 class="text-lg sm:text-xl tracking-[0.28em] text-morandi-text font-normal">
+                誠摯邀請您開啟喜悅
+            </h2>
+        </div>
+
+        <!-- 3D 立體信封互動區 -->
+        <div class="perspective-container relative z-10">
+            <div id="wedding-envelope" class="envelope-wrapper" role="button" tabindex="0" aria-label="點擊開啟婚禮邀請函信封">
+                <!-- 信封上蓋 -->
+                <div class="envelope-flap"></div>
+
+                <!-- 圓形婚紗印章 (銜接開場圓形畫框) -->
+                <div class="photo-seal">
+                    <div class="w-full h-full rounded-full overflow-hidden border border-white/80">
+                        <img src="https://i.postimg.cc/qB6sxm6B/VINCENT-677-(2).jpg" 
+                             referrerpolicy="no-referrer"
+                             onerror="if(!this.dataset.retried){this.dataset.retried='1';this.src='https://images.weserv.nl/?url=i.postimg.cc/qB6sxm6B/VINCENT-677-(2).jpg';}else{this.src='https://placehold.co/300x300/f3ebe1/8c857e?text=I%26S';}"
+                             alt="婚紗印章" 
+                             class="w-full h-full object-cover object-center">
+                    </div>
+                </div>
+
+                <!-- 內部滑出並優雅展開的信紙 -->
+                <div class="envelope-letter">
+                    <h3 class="letter-line letter-line-1 font-en text-2xl sm:text-3xl tracking-editorial text-morandi-primary font-medium mb-2">
+                        Ian＆Sandy
+                    </h3>
+                    <div class="letter-line letter-line-2 w-12 h-[1px] bg-gradient-to-r from-transparent via-morandi-primary/60 to-transparent my-2"></div>
+                    <p class="letter-line letter-line-3 text-sm sm:text-base tracking-[0.24em] text-morandi-text font-normal my-1.5">
+                        誠摯邀請您參與我們的婚禮
+                    </p>
+                    <p class="letter-line letter-line-4 font-en text-xs sm:text-sm tracking-widestPlus uppercase text-morandi-secondary mt-1.5">
+                        Wedding Invitation
+                    </p>
+                </div>
+
+                <!-- 信封口袋 -->
+                <div class="envelope-pocket"></div>
+            </div>
+        </div>
+
+        <p id="envelope-hint" class="mt-10 text-xs sm:text-sm tracking-[0.25em] text-morandi-muted animate-pulse transition-opacity duration-700">
+            輕觸婚紗印章開啟信封
+        </p>
+    </div>
+
+    <!-- ==================== 3. 固定毛玻璃導航列 (Fixed Glass Navbar) ==================== -->
+    <header id="main-navbar" class="fixed top-0 left-0 right-0 z-30 transition-all duration-500 opacity-0 pointer-events-none">
+        <div class="mx-auto max-w-5xl px-3 sm:px-6 pt-3 sm:pt-4">
+            <nav class="bg-white/70 backdrop-blur-md border border-white/80 shadow-glass rounded-full px-4 sm:px-8 py-3 flex items-center justify-between">
+                <!-- 左側品牌縮寫 -->
+                <a href="#for-you" class="font-en text-lg sm:text-xl font-semibold tracking-editorial text-morandi-primary hover:opacity-80 transition">
+                    I &amp; S
+                </a>
+
+                <!-- 中央四個導航項目 -->
+                <ul class="flex items-center space-x-3 sm:space-x-8 text-xs sm:text-sm tracking-[0.15em] sm:tracking-[0.22em] text-morandi-text">
+                    <li>
+                        <a href="#for-you" class="hover:text-morandi-primary transition-colors py-1 font-en font-medium">For you</a>
+                    </li>
+                    <li>
+                        <a href="#about-us" class="hover:text-morandi-primary transition-colors py-1">關於我們</a>
+                    </li>
+                    <li>
+                        <a href="#wedding-details" class="hover:text-morandi-primary transition-colors py-1">婚禮詳情</a>
+                    </li>
+                    <li>
+                        <a href="#photo-gallery" class="hover:text-morandi-primary transition-colors py-1">婚紗長廊</a>
+                    </li>
+                </ul>
+
+                <!-- 右側背景音樂控制按鈕 -->
+                <button id="music-toggle-btn" aria-label="切換背景音樂" class="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-morandi-primary/15 hover:bg-morandi-primary/25 flex items-center justify-center gap-[3px] transition music-paused">
+                    <span class="w-[2px] bg-morandi-primary rounded-full music-bar"></span>
+                    <span class="w-[2px] bg-morandi-primary rounded-full music-bar"></span>
+                    <span class="w-[2px] bg-morandi-primary rounded-full music-bar"></span>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- ==================== 4. 主內容區塊 (雜誌感排版) ==================== -->
+    <main id="main-content" class="opacity-0 transition-opacity duration-1000 pb-20">
+        
+        <!-- SECTION 1: For you (主視覺封面與靈魂標語) -->
+        <section id="for-you" class="pt-24 sm:pt-32 pb-16 sm:pb-24 px-4 sm:px-6 max-w-5xl mx-auto">
+            <div class="bg-white/60 rounded-[2rem] p-5 sm:p-10 md:p-12 shadow-soft border border-morandi-primary/15">
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-center">
+                    
+                    <!-- 左側：雜誌風直式婚紗主圖 -->
+                    <div class="md:col-span-6 relative">
+                        <div class="aspect-[3/4] rounded-[1.5rem] overflow-hidden shadow-md relative group">
+                            <img src="https://i.postimg.cc/qB6sxm6B/VINCENT-677-(2).jpg" 
+                                 referrerpolicy="no-referrer"
+                                 onerror="if(!this.dataset.retried){this.dataset.retried='1';this.src='https://images.weserv.nl/?url=i.postimg.cc/qB6sxm6B/VINCENT-677-(2).jpg';}else{this.src='https://placehold.co/900x1200/f3ebe1/8c857e?text=Ian+%26+Sandy';}"
+                                 alt="柏成與詩評 婚紗封面" 
+                                 class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-1000">
+                            <div class="absolute inset-0 ring-1 ring-inset ring-black/5 rounded-[1.5rem]"></div>
+                        </div>
+                        <!-- 浮動雜誌日期標籤 -->
+                        <div class="absolute -bottom-4 -right-2 sm:-right-4 bg-[#fdfaf7]/90 backdrop-blur-md px-5 py-3 rounded-2xl shadow-soft border border-morandi-primary/20">
+                            <p class="font-en text-xs tracking-widestPlus text-morandi-secondary uppercase">Wedding Day</p>
+                            <p class="font-en text-xl sm:text-2xl font-medium tracking-editorial text-morandi-text">2027.03.13</p>
+                        </div>
+                    </div>
+
+                    <!-- 右側：新人姓名、英文名與靈魂標語 -->
+                    <div class="md:col-span-6 text-center md:text-left pt-4 md:pt-0 md:pl-4 flex flex-col justify-center">
+                        <span class="inline-block font-en text-xs sm:text-sm tracking-widestPlus uppercase text-morandi-secondary mb-4">
+                            Special Issue — For You
+                        </span>
+
+                        <!-- 新郎新娘中文名字 -->
+                        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-medium tracking-[0.28em] text-morandi-text leading-tight mb-3">
+                            柏成 <span class="text-morandi-primary font-light mx-1">&amp;</span> 詩評
+                        </h1>
+
+                        <!-- 底下英文名 Ian & Sandy -->
+                        <p class="font-en italic text-2xl sm:text-3xl tracking-editorial text-morandi-muted mb-8">
+                            Ian &amp; Sandy
+                        </p>
+
+                        <!-- 裝飾線 -->
+                        <div class="w-16 h-[1px] bg-morandi-primary/50 mx-auto md:mx-0 mb-8"></div>
+
+                        <!-- 靈魂標語 -->
+                        <blockquote class="text-base sm:text-lg tracking-[0.26em] text-morandi-text leading-loose font-normal mb-8">
+                            「你是我漫漫時光裡的歡喜」
+                        </blockquote>
+
+                        <p class="text-xs sm:text-sm text-morandi-muted leading-relaxed tracking-[0.18em] font-light">
+                            往後餘生，風雪是你，平淡是你，<br class="hidden sm:inline">
+                            清貧是你，榮華是你，心底溫柔也是你。<br>
+                            在這個春暖花開的日子，期盼與您分享這份喜悅。
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 2: 關於我們 & 婚禮倒數計時 -->
+        <section id="about-us" class="py-16 sm:py-20 px-4 sm:px-6 max-w-4xl mx-auto reveal-up">
+            <div class="text-center mb-12">
+                <p class="font-en text-xs sm:text-sm tracking-widestPlus uppercase text-morandi-secondary mb-2">
+                    About Us &amp; Countdown
+                </p>
+                <h2 class="text-2xl sm:text-3xl tracking-[0.28em] text-morandi-text font-medium">
+                    關於我們與幸福倒數
+                </h2>
+            </div>
+
+            <!-- 雙人小卡 -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-12">
+                <div class="bg-morandi-card/80 rounded-3xl p-8 text-center border border-morandi-primary/15 shadow-sm">
+                    <p class="font-en text-xs tracking-widestPlus uppercase text-morandi-secondary mb-2">The Groom</p>
+                    <h3 class="text-xl tracking-[0.25em] text-morandi-text font-medium mb-1">柏成</h3>
+                    <p class="font-en italic text-lg text-morandi-primary mb-4">Ian</p>
+                    <p class="text-xs sm:text-sm text-morandi-muted tracking-[0.18em] leading-relaxed">
+                        溫柔堅定，是妳最安穩的依靠。<br>感謝命運讓我們在人海中相遇。
+                    </p>
+                </div>
+
+                <div class="bg-morandi-card/80 rounded-3xl p-8 text-center border border-morandi-primary/15 shadow-sm">
+                    <p class="font-en text-xs tracking-widestPlus uppercase text-morandi-secondary mb-2">The Bride</p>
+                    <h3 class="text-xl tracking-[0.25em] text-morandi-text font-medium mb-1">詩評</h3>
+                    <p class="font-en italic text-lg text-morandi-primary mb-4">Sandy</p>
+                    <p class="text-xs sm:text-sm text-morandi-muted tracking-[0.18em] leading-relaxed">
+                        細膩浪漫，把日常過成詩篇。<br>謝謝你把所有的偏愛都給了我。
+                    </p>
+                </div>
+            </div>
+
+            <!-- 婚禮倒數計時器 (2027.03.13 12:00 開席) -->
+            <div class="bg-white/80 backdrop-blur-md rounded-3xl p-6 sm:p-10 border border-morandi-primary/20 shadow-soft text-center">
+                <p class="text-xs sm:text-sm tracking-[0.25em] text-morandi-muted mb-2">
+                    距離 2027 年 3 月 13 日 12:00 午宴開席還有
+                </p>
+                <div id="countdown-timer" class="grid grid-cols-4 gap-3 sm:gap-6 max-w-lg mx-auto mt-6">
+                    <div class="bg-morandi-bg rounded-2xl py-4 px-2 border border-morandi-primary/15">
+                        <span id="cd-days" class="block font-en text-2xl sm:text-4xl font-semibold text-morandi-primary tracking-wider">000</span>
+                        <span class="text-[11px] sm:text-xs tracking-[0.2em] text-morandi-muted mt-1 block">DAYS 天</span>
+                    </div>
+                    <div class="bg-morandi-bg rounded-2xl py-4 px-2 border border-morandi-primary/15">
+                        <span id="cd-hours" class="block font-en text-2xl sm:text-4xl font-semibold text-morandi-primary tracking-wider">00</span>
+                        <span class="text-[11px] sm:text-xs tracking-[0.2em] text-morandi-muted mt-1 block">HOURS 時</span>
+                    </div>
+                    <div class="bg-morandi-bg rounded-2xl py-4 px-2 border border-morandi-primary/15">
+                        <span id="cd-minutes" class="block font-en text-2xl sm:text-4xl font-semibold text-morandi-primary tracking-wider">00</span>
+                        <span class="text-[11px] sm:text-xs tracking-[0.2em] text-morandi-muted mt-1 block">MINS 分</span>
+                    </div>
+                    <div class="bg-morandi-bg rounded-2xl py-4 px-2 border border-morandi-primary/15">
+                        <span id="cd-seconds" class="block font-en text-2xl sm:text-4xl font-semibold text-morandi-secondary tracking-wider">00</span>
+                        <span class="text-[11px] sm:text-xs tracking-[0.2em] text-morandi-muted mt-1 block">SECS 秒</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3: 婚禮詳情 (午宴資訊) -->
+        <section id="wedding-details" class="py-16 sm:py-20 px-4 sm:px-6 max-w-4xl mx-auto reveal-up">
+            <div class="text-center mb-12">
+                <p class="font-en text-xs sm:text-sm tracking-widestPlus uppercase text-morandi-secondary mb-2">
+                    Wedding Banquet Details
+                </p>
+                <h2 class="text-2xl sm:text-3xl tracking-[0.28em] text-morandi-text font-medium">
+                    婚禮詳情・午宴資訊
+                </h2>
+            </div>
+
+            <div class="bg-white/85 rounded-[2rem] p-8 sm:p-12 shadow-soft border border-morandi-primary/20 relative overflow-hidden">
+                <!-- 裝飾角落圓弧 -->
+                <div class="absolute -top-16 -right-16 w-40 h-40 rounded-full bg-morandi-primary/10 pointer-events-none"></div>
+                <div class="absolute -bottom-16 -left-16 w-40 h-40 rounded-full bg-morandi-secondary/10 pointer-events-none"></div>
+
+                <div class="relative z-10 text-center max-w-xl mx-auto">
+                    <span class="inline-block px-4 py-1.5 rounded-full bg-morandi-secondary/15 text-morandi-secondary text-xs tracking-[0.25em] mb-6">
+                        LUNCHEON RECEPTION
+                    </span>
+
+                    <h3 class="font-en text-3xl sm:text-4xl font-medium tracking-editorial text-morandi-text mb-2">
+                        2027.03.13 <span class="text-lg font-serifTc font-normal text-morandi-muted">(六)</span>
+                    </h3>
+
+                    <!-- 時間軸資訊 -->
+                    <div class="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8 my-8 py-6 border-y border-morandi-primary/20">
+                        <div class="text-center">
+                            <p class="font-en text-2xl sm:text-3xl font-semibold text-morandi-primary tracking-wider">11:30</p>
+                            <p class="text-xs sm:text-sm tracking-[0.22em] text-morandi-text mt-1">迎賓入席</p>
+                        </div>
+                        <div class="hidden sm:block w-12 h-[1px] bg-morandi-primary/40"></div>
+                        <div class="sm:hidden h-6 w-[1px] bg-morandi-primary/40"></div>
+                        <div class="text-center">
+                            <p class="font-en text-2xl sm:text-3xl font-semibold text-morandi-secondary tracking-wider">12:00</p>
+                            <p class="text-xs sm:text-sm tracking-[0.22em] text-morandi-text mt-1">準時開席</p>
+                        </div>
+                    </div>
+
+                    <!-- 地點資訊 -->
+                    <div class="mb-8">
+                        <p class="text-xs tracking-[0.25em] text-morandi-muted mb-2">宴客地點</p>
+                        <h4 class="text-xl sm:text-2xl font-medium tracking-[0.22em] text-morandi-text mb-2">
+                            台中烏日璞旅
+                        </h4>
+                        <p class="text-xs sm:text-sm text-morandi-muted tracking-[0.15em]">
+                            台中市烏日區健行路757號
+                        </p>
+                    </div>
+
+                    <!-- 互動按鈕列：Google 地圖與分享至 LINE -->
+                    <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                        <a href="https://www.google.com/maps/search/?api=1&query=台中烏日璞旅" 
+                           target="_blank" rel="noopener noreferrer"
+                           class="w-full sm:w-auto px-7 py-3.5 rounded-full bg-morandi-primary text-white text-xs sm:text-sm tracking-[0.2em] hover:bg-[#c59261] transition shadow-sm flex items-center justify-center gap-2">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                            </svg>
+                            <span>開啟地圖導航</span>
+                        </a>
+
+                        <button id="share-line-btn" type="button"
+                                class="w-full sm:w-auto px-7 py-3.5 rounded-full bg-morandi-line text-white text-xs sm:text-sm tracking-[0.2em] hover:opacity-90 transition shadow-sm flex items-center justify-center gap-2">
+                            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                                <path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/>
+                            </svg>
+                            <span>分享喜帖至 LINE</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 4: 婚紗長廊 (輪播展示) -->
+        <section id="photo-gallery" class="py-16 sm:py-20 px-4 sm:px-6 max-w-5xl mx-auto reveal-up">
+            <div class="text-center mb-12">
+                <p class="font-en text-xs sm:text-sm tracking-widestPlus uppercase text-morandi-secondary mb-2">
+                    Pre-Wedding Gallery
+                </p>
+                <h2 class="text-2xl sm:text-3xl tracking-[0.28em] text-morandi-text font-medium">
+                    婚紗長廊・定格永恆
+                </h2>
+            </div>
+
+            <!-- 輪播主容器 -->
+            <div class="bg-white/75 p-4 sm:p-8 rounded-[2rem] shadow-soft border border-morandi-primary/15">
+                <div class="relative aspect-[4/5] sm:aspect-[16/10] w-full rounded-[1.5rem] overflow-hidden bg-morandi-card" id="gallery-viewport">
+                    <!-- 圖片容器將由 JS 動態渲染您指定的 5 張婚紗照 -->
+                    <div id="gallery-slides-container" class="w-full h-full relative"></div>
+
+                    <!-- 左右切換按鈕 -->
+                    <button id="prev-slide-btn" aria-label="上一張照片" class="absolute left-3 sm:left-5 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-white/75 backdrop-blur-md text-morandi-text hover:bg-white transition flex items-center justify-center shadow-sm">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M15 19l-7-7 7-7"/>
+                        </svg>
+                    </button>
+                    <button id="next-slide-btn" aria-label="下一張照片" class="absolute right-3 sm:right-5 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-white/75 backdrop-blur-md text-morandi-text hover:bg-white transition flex items-center justify-center shadow-sm">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M9 5l7 7-7 7"/>
+                        </svg>
+                    </button>
+
+                    <!-- 底部頁碼膠囊 -->
+                    <div class="absolute bottom-4 right-4 z-20 px-3.5 py-1 rounded-full bg-black/35 backdrop-blur-md text-white font-en text-xs tracking-widest">
+                        <span id="gallery-current-index">01</span> / <span id="gallery-total-count">05</span>
+                    </div>
+                </div>
+
+                <!-- 縮圖導航列 -->
+                <div id="gallery-thumbnails" class="grid grid-cols-5 gap-2 sm:gap-4 mt-4 sm:mt-6"></div>
+            </div>
+        </section>
+
+        <!-- 頁尾誌謝 -->
+        <footer class="mt-16 pt-12 border-t border-morandi-primary/20 text-center px-4">
+            <p class="font-en italic text-2xl sm:text-3xl text-morandi-primary tracking-editorial mb-2">
+                Ian &amp; Sandy
+            </p>
+            <p class="text-xs sm:text-sm tracking-[0.25em] text-morandi-text mb-4">
+                柏成 &amp; 詩評・你是我漫漫時光裡的歡喜
+            </p>
+            <p class="font-en text-xs tracking-widestPlus text-morandi-muted uppercase">
+                2027.03.13 • Taichung Wuri
+            </p>
+        </footer>
+    </main>
+
+    <!-- 柔和訊息提示框 (取代 alert) -->
+    <div id="toast-message" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 bg-morandi-text/90 backdrop-blur-md text-white px-6 py-3 rounded-full text-xs sm:text-sm tracking-[0.18em] shadow-lg opacity-0 pointer-events-none transition-all duration-300">
+        已複製喜帖連結，歡迎分享給親友！
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            /* =========================================================
+             * 1. 溫柔背景鋼琴旋律引擎 (使用 Tone.js 合成，無外部音源依賴)
+             * ========================================================= */
+            let isMusicPlaying = false;
+            let musicLoop = null;
+            let synth = null;
+            const musicBtn = document.getElementById('music-toggle-btn');
+
+            function initAndPlayGentleMusic() {
+                try {
+                    if (typeof Tone === 'undefined') return;
+                    if (!synth) {
+                        const reverb = new Tone.Reverb({ decay: 4.5, wet: 0.55 }).toDestination();
+                        synth = new Tone.PolySynth(Tone.Synth, {
+                            oscillator: { type: 'sine' },
+                            envelope: {
+                                attack: 0.4,
+                                decay: 1.2,
+                                sustain: 0.4,
+                                release: 2.5
+                            },
+                            volume: -14
+                        }).connect(reverb);
+
+                        const melodyNotes = [
+                            ['C4', 'E4', 'G4', 'D5'],
+                            ['B3', 'D4', 'G4', 'D5'],
+                            ['A3', 'C4', 'E4', 'G4'],
+                            ['F3', 'A3', 'C4', 'E4']
+                        ];
+                        let step = 0;
+
+                        musicLoop = new Tone.Loop((time) => {
+                            const chord = melodyNotes[step % melodyNotes.length];
+                            chord.forEach((note, idx) => {
+                                synth.triggerAttackRelease(note, '2n', time + idx * 0.45);
+                            });
+                            step++;
+                        }, '2m');
+                    }
+
+                    Tone.start().then(() => {
+                        Tone.Transport.bpm.value = 68;
+                        musicLoop.start(0);
+                        Tone.Transport.start();
+                        isMusicPlaying = true;
+                        musicBtn.classList.remove('music-paused');
+                    });
+                } catch (e) {
+                    console.warn('Audio playback notice:', e);
+                }
+            }
+
+            musicBtn.addEventListener('click', () => {
+                if (!synth) {
+                    initAndPlayGentleMusic();
+                    return;
+                }
+                if (isMusicPlaying) {
+                    Tone.Transport.pause();
+                    isMusicPlaying = false;
+                    musicBtn.classList.add('music-paused');
+                } else {
+                    Tone.Transport.start();
+                    isMusicPlaying = true;
+                    musicBtn.classList.remove('music-paused');
+                }
+            });
+
+            /* =========================================================
+             * 2. 開場畫面：停留 5 秒讓進度條從 0% 跑到 100%
+             * ========================================================= */
+            const preloader = document.getElementById('intro-preloader');
+            const preloaderCircleFrame = document.getElementById('preloader-circle-frame');
+            const preloaderMeta = document.getElementById('preloader-meta');
+            const progressBar = document.getElementById('progress-bar');
+            const progressText = document.getElementById('progress-text');
+            const envelopeOverlay = document.getElementById('envelope-overlay');
+
+            const duration = 5000;
+            const intervalTime = 50;
+            const totalSteps = duration / intervalTime;
+            let currentStep = 0;
+
+            const progressTimer = setInterval(() => {
+                currentStep++;
+                const percent = Math.min(100, Math.round((currentStep / totalSteps) * 100));
+                progressBar.style.width = `${percent}%`;
+                progressText.textContent = `${percent}%`;
+
+                if (currentStep >= totalSteps) {
+                    clearInterval(progressTimer);
+                    setTimeout(() => {
+                        preloaderMeta.classList.add('opacity-0');
+                        preloaderCircleFrame.classList.add('shrink-to-seal');
+
+                        envelopeOverlay.classList.remove('hidden');
+                        envelopeOverlay.classList.add('flex');
+                        requestAnimationFrame(() => {
+                            envelopeOverlay.classList.remove('opacity-0');
+                        });
+
+                        setTimeout(() => {
+                            preloader.classList.add('opacity-0', 'pointer-events-none');
+                            setTimeout(() => {
+                                preloader.style.display = 'none';
+                            }, 850);
+                        }, 450);
+                    }, 250);
+                }
+            }, intervalTime);
+
+            /* =========================================================
+             * 3. 點擊立體信封：信封淡出、信紙優雅展開、啟動音樂並進入主畫面
+             * ========================================================= */
+            const envelope = document.getElementById('wedding-envelope');
+            const envelopeHint = document.getElementById('envelope-hint');
+            const envelopeHeaderText = document.getElementById('envelope-header-text');
+            const envelopeWarmGlow = document.getElementById('envelope-warm-glow');
+            const mainNavbar = document.getElementById('main-navbar');
+            const mainContent = document.getElementById('main-content');
+            let isEnvelopeOpened = false;
+
+            function openWeddingEnvelope() {
+                if (isEnvelopeOpened) return;
+                isEnvelopeOpened = true;
+
+                envelope.classList.add('opened');
+                envelopeHint.classList.remove('animate-pulse');
+                envelopeHint.classList.add('opacity-0');
+                envelopeHeaderText.classList.add('opacity-0', '-translate-y-3');
+                envelopeWarmGlow.classList.remove('opacity-0', 'scale-75');
+                envelopeWarmGlow.classList.add('opacity-100', 'scale-110');
+
+                initAndPlayGentleMusic();
+
+                setTimeout(() => {
+                    envelopeOverlay.classList.add('opacity-0', 'scale-[1.03]', 'pointer-events-none');
+                    mainNavbar.classList.remove('opacity-0', 'pointer-events-none');
+                    mainContent.classList.remove('opacity-0');
+
+                    setTimeout(() => {
+                        envelopeOverlay.style.display = 'none';
+                        triggerScrollReveal();
+                    }, 1400);
+                }, 3200);
+            }
+
+            envelope.addEventListener('click', openWeddingEnvelope);
+            envelope.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    openWeddingEnvelope();
+                }
+            });
+
+            /* =========================================================
+             * 4. 婚禮倒數計時器 (目標：2027.03.13 12:00:00)
+             * ========================================================= */
+            const targetDate = new Date('2027-03-13T12:00:00+08:00').getTime();
+            const elDays = document.getElementById('cd-days');
+            const elHours = document.getElementById('cd-hours');
+            const elMinutes = document.getElementById('cd-minutes');
+            const elSeconds = document.getElementById('cd-seconds');
+
+            function updateCountdown() {
+                const now = new Date().getTime();
+                const distance = targetDate - now;
+
+                if (distance <= 0) {
+                    elDays.textContent = '000';
+                    elHours.textContent = '00';
+                    elMinutes.textContent = '00';
+                    elSeconds.textContent = '00';
+                    return;
+                }
+
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                elDays.textContent = String(days).padStart(3, '0');
+                elHours.textContent = String(hours).padStart(2, '0');
+                elMinutes.textContent = String(minutes).padStart(2, '0');
+                elSeconds.textContent = String(seconds).padStart(2, '0');
+            }
+
+            updateCountdown();
+            setInterval(updateCountdown, 1000);
+
+            /* =========================================================
+             * 5. 婚紗長廊輪播系統 (自動輪播 + 手動切換 + 觸控滑動)
+             * ========================================================= */
+            const galleryPhotos = [
+                'https://i.postimg.cc/qB6sxm6B/VINCENT-677-(2).jpg',
+                'https://i.postimg.cc/qB6sxm6B/VINCENT-677-(2).jpg',
+                'https://i.postimg.cc/qB6sxm6B/VINCENT-677-(2).jpg',
+                'https://i.postimg.cc/qB6sxm6B/VINCENT-677-(2).jpg',
+                'https://i.postimg.cc/qB6sxm6B/VINCENT-677-(2).jpg'
+            ];
+
+            const slidesContainer = document.getElementById('gallery-slides-container');
+            const thumbnailsContainer = document.getElementById('gallery-thumbnails');
+            const currentIndexEl = document.getElementById('gallery-current-index');
+            const totalCountEl = document.getElementById('gallery-total-count');
+            let currentSlide = 0;
+            let slideInterval = null;
+
+            totalCountEl.textContent = String(galleryPhotos.length).padStart(2, '0');
+
+            galleryPhotos.forEach((url, index) => {
+                const cleanUrl = url.replace(/^https?:\/\//, '');
+                const slideDiv = document.createElement('div');
+                slideDiv.className = `gallery-slide absolute inset-0 w-full h-full ${index === 0 ? 'opacity-100 scale-100 z-10' : 'opacity-0 scale-105 z-0'}`;
+                slideDiv.innerHTML = `
+                    <img src="${url}" 
+                         referrerpolicy="no-referrer"
+                         onerror="if(!this.dataset.retried){this.dataset.retried='1';this.src='https://images.weserv.nl/?url=${cleanUrl}';}else{this.src='https://placehold.co/1200x900/f3ebe1/8c857e?text=Wedding+Photo+${index + 1}';}"
+                         alt="婚紗照 ${index + 1}" 
+                         class="w-full h-full object-cover object-center">
+                `;
+                slidesContainer.appendChild(slideDiv);
+
+                const thumbBtn = document.createElement('button');
+                thumbBtn.type = 'button';
+                thumbBtn.ariaLabel = `檢視第 ${index + 1} 張婚紗照`;
+                thumbBtn.className = `aspect-square sm:aspect-[4/3] rounded-xl overflow-hidden border-2 transition-all duration-300 ${index === 0 ? 'border-morandi-primary opacity-100 scale-[1.02]' : 'border-transparent opacity-60 hover:opacity-90'}`;
+                thumbBtn.innerHTML = `
+                    <img src="${url}" 
+                         referrerpolicy="no-referrer"
+                         onerror="if(!this.dataset.retried){this.dataset.retried='1';this.src='https://images.weserv.nl/?url=${cleanUrl}';}else{this.src='https://placehold.co/300x300/f3ebe1/8c857e?text=${index + 1}';}"
+                         alt="縮圖 ${index + 1}" 
+                         class="w-full h-full object-cover object-center">
+                `;
+                thumbBtn.addEventListener('click', () => {
+                    goToSlide(index);
+                    resetAutoSlide();
+                });
+                thumbnailsContainer.appendChild(thumbBtn);
+            });
+
+            function goToSlide(index) {
+                const slides = slidesContainer.children;
+                const thumbs = thumbnailsContainer.children;
+
+                slides[currentSlide].classList.remove('opacity-100', 'scale-100', 'z-10');
+                slides[currentSlide].classList.add('opacity-0', 'scale-105', 'z-0');
+                thumbs[currentSlide].classList.remove('border-morandi-primary', 'opacity-100', 'scale-[1.02]');
+                thumbs[currentSlide].classList.add('border-transparent', 'opacity-60');
+
+                currentSlide = (index + galleryPhotos.length) % galleryPhotos.length;
+
+                slides[currentSlide].classList.remove('opacity-0', 'scale-105', 'z-0');
+                slides[currentSlide].classList.add('opacity-100', 'scale-100', 'z-10');
+                thumbs[currentSlide].classList.remove('border-transparent', 'opacity-60');
+                thumbs[currentSlide].classList.add('border-morandi-primary', 'opacity-100', 'scale-[1.02]');
+
+                currentIndexEl.textContent = String(currentSlide + 1).padStart(2, '0');
+            }
+
+            function startAutoSlide() {
+                slideInterval = setInterval(() => {
+                    goToSlide(currentSlide + 1);
+                }, 4000);
+            }
+
+            function resetAutoSlide() {
+                clearInterval(slideInterval);
+                startAutoSlide();
+            }
+
+            document.getElementById('prev-slide-btn').addEventListener('click', () => {
+                goToSlide(currentSlide - 1);
+                resetAutoSlide();
+            });
+
+            document.getElementById('next-slide-btn').addEventListener('click', () => {
+                goToSlide(currentSlide + 1);
+                resetAutoSlide();
+            });
+
+            let touchStartX = 0;
+            const galleryViewport = document.getElementById('gallery-viewport');
+            galleryViewport.addEventListener('touchstart', (e) => {
+                touchStartX = e.changedTouches[0].screenX;
+            }, { passive: true });
+
+            galleryViewport.addEventListener('touchend', (e) => {
+                const touchEndX = e.changedTouches[0].screenX;
+                if (touchStartX - touchEndX > 40) {
+                    goToSlide(currentSlide + 1);
+                    resetAutoSlide();
+                } else if (touchEndX - touchStartX > 40) {
+                    goToSlide(currentSlide - 1);
+                    resetAutoSlide();
+                }
+            }, { passive: true });
+
+            startAutoSlide();
+
+            /* =========================================================
+             * 6. LINE 分享與滾動漸顯效果
+             * ========================================================= */
+            const shareLineBtn = document.getElementById('share-line-btn');
+            const toastMsg = document.getElementById('toast-message');
+
+            function showToast(text) {
+                toastMsg.textContent = text;
+                toastMsg.classList.remove('opacity-0');
+                setTimeout(() => {
+                    toastMsg.classList.add('opacity-0');
+                }, 3000);
+            }
+
+            shareLineBtn.addEventListener('click', () => {
+                const shareText = '誠摯邀請您參加 柏成 & 詩評 (Ian & Sandy) 的婚禮午宴｜2027.03.13 台中烏日璞旅';
+                const currentUrl = window.location.href;
+                
+                const tempInput = document.createElement('textarea');
+                tempInput.value = `${shareText}\n${currentUrl}`;
+                document.body.appendChild(tempInput);
+                tempInput.select();
+                try {
+                    document.execCommand('copy');
+                    showToast('已複製喜帖邀請資訊，正為您開啟 LINE 分享！');
+                } catch (err) {
+                    showToast('正為您開啟 LINE 分享！');
+                }
+                document.body.removeChild(tempInput);
+
+                const lineUrl = `https://line.me/R/msg/text/?${encodeURIComponent(shareText + '\n' + currentUrl)}`;
+                window.open(lineUrl, '_blank', 'noopener,noreferrer');
+            });
+
+            function triggerScrollReveal() {
+                const reveals = document.querySelectorAll('.reveal-up');
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('active');
+                        }
+                    });
+                }, { threshold: 0.12 });
+
+                reveals.forEach(el => observer.observe(el));
+            }
+        });
+    </script>
 </body>
 </html>
