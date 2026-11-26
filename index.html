@@ -295,6 +295,21 @@
         #music-toggle-btn:not(.music-paused) .music-bar:nth-child(3) {
             animation: soundWave 0.9s ease-in-out infinite 0.2s;
         }
+
+        /* 婚紗長廊淡入切換與區塊滾動漸顯 */
+        .gallery-slide {
+            transition: opacity 0.9s ease, transform 1.2s ease;
+        }
+
+        .reveal-up {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.9s ease-out, transform 0.9s ease-out;
+        }
+        .reveal-up.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
     </style>
 </head>
 <body class="antialiased selection:bg-morandi-primary/20 selection:text-morandi-text">
@@ -675,13 +690,16 @@
         已複製喜帖連結，歡迎分享給親友！
     </div>
 
-    <!-- 背景音樂播放器 (與 index.html 同層目錄) -->
-    <audio id="wedding-bgm" src="./musictest.mp3" loop preload="auto" playsinline webkit-playsinline></audio>
+    <!-- 背景音樂播放器 (支援 GitHub 專案同層及根目錄路徑的 musictest.mp3) -->
+    <audio id="wedding-bgm" loop preload="auto" playsinline webkit-playsinline>
+        <source src="./musictest.mp3" type="audio/mpeg">
+        <source src="musictest.mp3" type="audio/mpeg">
+    </audio>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             /* =========================================================
-             * 1. 背景音樂播放控制 (musictest.mp3)
+             * 1. 背景音樂播放控制 (GitHub 專案 musictest.mp3)
              * ========================================================= */
             let isMusicPlaying = false;
             let audioLoadError = false;
@@ -689,10 +707,10 @@
             const musicBtn = document.getElementById('music-toggle-btn');
 
             if (bgmAudio) {
-                bgmAudio.addEventListener('error', () => {
+                bgmAudio.addEventListener('error', (e) => {
                     audioLoadError = true;
-                    console.error('音檔載入失敗，請確認路徑：', bgmAudio.currentSrc);
-                });
+                    console.error('musictest.mp3 載入失敗，請確認 GitHub 專案路徑與檔名大小寫：', e);
+                }, true);
                 bgmAudio.load();
             }
 
@@ -710,7 +728,7 @@
                         isMusicPlaying = false;
                         musicBtn.classList.add('music-paused');
                         if (audioLoadError) {
-                            showToast('找不到音檔：請確認 musictest.mp3 與 index.html 在同一層');
+                            showToast('找不到 musictest.mp3，請確認已上傳至 GitHub 專案同層目錄');
                         }
                     });
                 }
@@ -731,9 +749,9 @@
                     }).catch((e) => {
                         console.warn('Audio playback notice:', e);
                         if (audioLoadError) {
-                            showToast('找不到音檔：請確認 musictest.mp3 路徑與大小寫');
+                            showToast('找不到 musictest.mp3，請確認 GitHub 專案路徑與檔名大小寫');
                         } else {
-                            showToast('無法播放音訊，請檢查瀏覽器靜音設定');
+                            showToast('無法播放音訊，請檢查裝置是否開啟靜音模式');
                         }
                     });
                 }
