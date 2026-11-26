@@ -13,9 +13,6 @@
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Tone.js for gentle ambient wedding melody -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
 
     <!-- Tailwind Config -->
     <script>
@@ -659,74 +656,62 @@
         已複製喜帖連結，歡迎分享給親友！
     </div>
 
+    <!-- 背景音樂播放器 (與 index.html 同層目錄) -->
+    <audio id="wedding-bgm" src="./Keys%20Of%20Moon%20-%20Blooming%20Melody.mp3" loop preload="auto"></audio>
+
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             /* =========================================================
-             * 1. 溫柔背景鋼琴旋律引擎 (使用 Tone.js 合成，無外部音源依賴)
+             * 1. 背景音樂播放控制 (Keys Of Moon - Blooming Melody.mp3)
              * ========================================================= */
             let isMusicPlaying = false;
-            let musicLoop = null;
-            let synth = null;
+            let fadeInterval = null;
+            const bgmAudio = document.getElementById('wedding-bgm');
             const musicBtn = document.getElementById('music-toggle-btn');
 
-            function initAndPlayGentleMusic() {
-                try {
-                    if (typeof Tone === 'undefined') return;
-                    if (!synth) {
-                        const reverb = new Tone.Reverb({ decay: 4.5, wet: 0.55 }).toDestination();
-                        synth = new Tone.PolySynth(Tone.Synth, {
-                            oscillator: { type: 'sine' },
-                            envelope: {
-                                attack: 0.4,
-                                decay: 1.2,
-                                sustain: 0.4,
-                                release: 2.5
-                            },
-                            volume: -14
-                        }).connect(reverb);
+            function fadeAudioIn(audioEl, targetVolume = 0.65, durationMs = 1800) {
+                clearInterval(fadeInterval);
+                audioEl.volume = 0;
+                const steps = 30;
+                const stepTime = durationMs / steps;
+                const volumeStep = targetVolume / steps;
 
-                        const melodyNotes = [
-                            ['C4', 'E4', 'G4', 'D5'],
-                            ['B3', 'D4', 'G4', 'D5'],
-                            ['A3', 'C4', 'E4', 'G4'],
-                            ['F3', 'A3', 'C4', 'E4']
-                        ];
-                        let step = 0;
-
-                        musicLoop = new Tone.Loop((time) => {
-                            const chord = melodyNotes[step % melodyNotes.length];
-                            chord.forEach((note, idx) => {
-                                synth.triggerAttackRelease(note, '2n', time + idx * 0.45);
-                            });
-                            step++;
-                        }, '2m');
+                fadeInterval = setInterval(() => {
+                    if (audioEl.volume + volumeStep < targetVolume) {
+                        audioEl.volume = Math.min(targetVolume, audioEl.volume + volumeStep);
+                    } else {
+                        audioEl.volume = targetVolume;
+                        clearInterval(fadeInterval);
                     }
+                }, stepTime);
+            }
 
-                    Tone.start().then(() => {
-                        Tone.Transport.bpm.value = 68;
-                        musicLoop.start(0);
-                        Tone.Transport.start();
-                        isMusicPlaying = true;
-                        musicBtn.classList.remove('music-paused');
-                    });
-                } catch (e) {
+            function initAndPlayGentleMusic() {
+                if (!bgmAudio) return;
+                bgmAudio.play().then(() => {
+                    isMusicPlaying = true;
+                    musicBtn.classList.remove('music-paused');
+                    fadeAudioIn(bgmAudio);
+                }).catch((e) => {
                     console.warn('Audio playback notice:', e);
-                }
+                });
             }
 
             musicBtn.addEventListener('click', () => {
-                if (!synth) {
-                    initAndPlayGentleMusic();
-                    return;
-                }
+                if (!bgmAudio) return;
                 if (isMusicPlaying) {
-                    Tone.Transport.pause();
+                    clearInterval(fadeInterval);
+                    bgmAudio.pause();
                     isMusicPlaying = false;
                     musicBtn.classList.add('music-paused');
                 } else {
-                    Tone.Transport.start();
-                    isMusicPlaying = true;
-                    musicBtn.classList.remove('music-paused');
+                    bgmAudio.play().then(() => {
+                        isMusicPlaying = true;
+                        musicBtn.classList.remove('music-paused');
+                        fadeAudioIn(bgmAudio, 0.65, 800);
+                    }).catch((e) => {
+                        console.warn('Audio playback notice:', e);
+                    });
                 }
             });
 
