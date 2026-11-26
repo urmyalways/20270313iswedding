@@ -276,6 +276,25 @@
             opacity: 1;
             transform: translateY(0);
         }
+
+        /* 右上角音樂按鈕音浪動畫 */
+        @keyframes soundWave {
+            0%, 100% { height: 5px; }
+            50% { height: 14px; }
+        }
+        .music-bar {
+            height: 6px;
+            transition: height 0.3s ease;
+        }
+        #music-toggle-btn:not(.music-paused) .music-bar:nth-child(1) {
+            animation: soundWave 0.9s ease-in-out infinite 0.1s;
+        }
+        #music-toggle-btn:not(.music-paused) .music-bar:nth-child(2) {
+            animation: soundWave 0.9s ease-in-out infinite 0.3s;
+        }
+        #music-toggle-btn:not(.music-paused) .music-bar:nth-child(3) {
+            animation: soundWave 0.9s ease-in-out infinite 0.2s;
+        }
     </style>
 </head>
 <body class="antialiased selection:bg-morandi-primary/20 selection:text-morandi-text">
@@ -657,60 +676,65 @@
     </div>
 
     <!-- 背景音樂播放器 (與 index.html 同層目錄) -->
-    <audio id="wedding-bgm" src="./Keys%20Of%20Moon%20-%20Blooming%20Melody.mp3" loop preload="auto"></audio>
+    <audio id="wedding-bgm" src="./musictest.mp3" loop preload="auto" playsinline webkit-playsinline></audio>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             /* =========================================================
-             * 1. 背景音樂播放控制 (Keys Of Moon - Blooming Melody.mp3)
+             * 1. 背景音樂播放控制 (musictest.mp3)
              * ========================================================= */
             let isMusicPlaying = false;
-            let fadeInterval = null;
+            let audioLoadError = false;
             const bgmAudio = document.getElementById('wedding-bgm');
             const musicBtn = document.getElementById('music-toggle-btn');
 
-            function fadeAudioIn(audioEl, targetVolume = 0.65, durationMs = 1800) {
-                clearInterval(fadeInterval);
-                audioEl.volume = 0;
-                const steps = 30;
-                const stepTime = durationMs / steps;
-                const volumeStep = targetVolume / steps;
-
-                fadeInterval = setInterval(() => {
-                    if (audioEl.volume + volumeStep < targetVolume) {
-                        audioEl.volume = Math.min(targetVolume, audioEl.volume + volumeStep);
-                    } else {
-                        audioEl.volume = targetVolume;
-                        clearInterval(fadeInterval);
-                    }
-                }, stepTime);
+            if (bgmAudio) {
+                bgmAudio.addEventListener('error', () => {
+                    audioLoadError = true;
+                    console.error('音檔載入失敗，請確認路徑：', bgmAudio.currentSrc);
+                });
+                bgmAudio.load();
             }
 
             function initAndPlayGentleMusic() {
                 if (!bgmAudio) return;
-                bgmAudio.play().then(() => {
-                    isMusicPlaying = true;
-                    musicBtn.classList.remove('music-paused');
-                    fadeAudioIn(bgmAudio);
-                }).catch((e) => {
-                    console.warn('Audio playback notice:', e);
-                });
+                bgmAudio.muted = false;
+                bgmAudio.volume = 1.0;
+                const playPromise = bgmAudio.play();
+                if (playPromise !== undefined) {
+                    playPromise.then(() => {
+                        isMusicPlaying = true;
+                        musicBtn.classList.remove('music-paused');
+                    }).catch((e) => {
+                        console.warn('Audio playback notice:', e);
+                        isMusicPlaying = false;
+                        musicBtn.classList.add('music-paused');
+                        if (audioLoadError) {
+                            showToast('找不到音檔：請確認 musictest.mp3 與 index.html 在同一層');
+                        }
+                    });
+                }
             }
 
             musicBtn.addEventListener('click', () => {
                 if (!bgmAudio) return;
                 if (isMusicPlaying) {
-                    clearInterval(fadeInterval);
                     bgmAudio.pause();
                     isMusicPlaying = false;
                     musicBtn.classList.add('music-paused');
                 } else {
+                    bgmAudio.muted = false;
+                    bgmAudio.volume = 1.0;
                     bgmAudio.play().then(() => {
                         isMusicPlaying = true;
                         musicBtn.classList.remove('music-paused');
-                        fadeAudioIn(bgmAudio, 0.65, 800);
                     }).catch((e) => {
                         console.warn('Audio playback notice:', e);
+                        if (audioLoadError) {
+                            showToast('找不到音檔：請確認 musictest.mp3 路徑與大小寫');
+                        } else {
+                            showToast('無法播放音訊，請檢查瀏覽器靜音設定');
+                        }
                     });
                 }
             });
